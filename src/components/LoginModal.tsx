@@ -1,7 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import { X, Github } from "lucide-react"; // Assuming lucide-react is available given @tabler/icons-react logic or similar, checking package.json... actually lucide-react is often standard in shadcn/ui. If not, I'll use simple svg or check installed icons.
-// Checking package.json from previous steps... @tabler/icons-react is installed. I will use that.
-import { IconBrandGithub, IconX } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandGoogle, IconX } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/supabaseClient";
 
@@ -16,6 +14,13 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             provider: 'github',
         });
         if (error) console.error('Error logging in:', error.message);
+    };
+
+    const handleGoogleLogin = async () => {
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+        });
+        if (error) console.error('Error logging in with Google:', error.message);
     };
 
     return (
@@ -61,13 +66,21 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                                 Prove your worth, warrior. To join the raid and etch your name into the saga, you must reveal your identity.
                             </p>
 
-                            <div className="w-full pt-4">
+                            <div className="w-full pt-4 space-y-4">
                                 <Button
                                     onClick={handleLogin}
                                     className="w-full bg-viking-leather hover:bg-black text-white font-bold text-lg py-6 border-2 border-viking-gold shadow-[0_0_15px_rgba(251,191,36,0.2)] hover:shadow-[0_0_25px_rgba(251,191,36,0.4)] transition-all uppercase tracking-wider flex items-center justify-center gap-3 group"
                                 >
                                     <IconBrandGithub className="group-hover:text-viking-gold transition-colors" size={24} />
                                     <span>Sign in with GitHub</span>
+                                </Button>
+
+                                <Button
+                                    onClick={handleGoogleLogin}
+                                    className="w-full bg-white hover:bg-gray-200 text-black font-bold text-lg py-6 border-2 border-gray-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] transition-all uppercase tracking-wider flex items-center justify-center gap-3 group"
+                                >
+                                    <IconBrandGoogle className="text-red-500 group-hover:scale-110 transition-transform" size={24} />
+                                    <span>Sign in with Google</span>
                                 </Button>
                             </div>
 
