@@ -21,9 +21,9 @@ export function Footer() {
 
                 {/* Logo & Brand */}
                 <div className="flex flex-col items-center justify-center mb-12">
-                    <div className="flex items-center gap-8 mb-4">
-                        <img src={logo} alt="VictorHacks Logo" className="h-32 md:h-56 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(251,191,36,0.3)]" />
-                        <span className="text-3xl md:text-8xl font-heading font-black tracking-tight text-white drop-shadow-lg leading-none">VictorHacks</span>
+                    <div className="flex items-center gap-4 sm:gap-6 md:gap-8 mb-4">
+                        <img src={logo} alt="VictorHacks Logo" className="h-20 sm:h-32 md:h-40 lg:h-56 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(251,191,36,0.3)] transition-all duration-300" />
+                        <span className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-heading font-black tracking-tight text-white drop-shadow-lg leading-none transition-all duration-300">VictorHacks</span>
                     </div>
                 </div>
 

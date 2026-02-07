@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { supabase } from "@/supabaseClient";
+import { RegistrationForm } from "@/components/RegistrationForm";
 import { Hero } from "@/components/Hero";
 import { ParallaxWrapper } from "@/components/ParallaxWrapper";
 import { FAQ } from "@/components/FAQ"
@@ -12,8 +15,25 @@ import {
 import { Footer } from "@/components/Footer"
 import { About } from "@/components/About";
 import { Tracks } from "@/components/Tracks";
+import { SmoothScrollLayout } from "@/components/SmoothScrollLayout";
 
 function App() {
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   const navItems = [
     { title: "Home", icon: <IconBuildingCastle className="h-full w-full text-neutral-500 dark:text-neutral-300" />, href: "#" },
     { title: "About", icon: <IconFileText className="h-full w-full text-neutral-500 dark:text-neutral-300" />, href: "#about" },
@@ -21,22 +41,42 @@ function App() {
     { title: "FAQ", icon: <IconHelpCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />, href: "#faq" },
   ];
 
+  if (session) {
+    return (
+      <SmoothScrollLayout>
+        <main className="relative w-full overflow-x-hidden bg-black text-white selection:bg-rose-500 min-h-screen">
+          <RegistrationForm session={session} />
+          <div className="fixed right-4 bottom-4 z-50">
+            <button
+              onClick={() => supabase.auth.signOut()}
+              className="bg-viking-crimson text-white px-4 py-2 text-sm font-bold uppercase tracking-wider border border-viking-gold hover:bg-red-800 transition-colors"
+            >
+              Sign Out
+            </button>
+          </div>
+        </main>
+      </SmoothScrollLayout>
+    )
+  }
+
   return (
-    <main className="relative w-full overflow-x-hidden bg-black text-white selection:bg-rose-500">
-      <ParallaxWrapper>
-        <Hero />
-      </ParallaxWrapper>
-      <About />
-      <Tracks />
-      <FAQ />
-      <Footer />
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50">
-        <FloatingDock
-          items={navItems}
-          desktopClassName="bg-viking-charcoal/80 backdrop-blur-md border border-viking-maroon hover:border-viking-crimson hover:shadow-[0_0_15px_rgba(153,27,27,0.5)] transition-all duration-300"
-        />
-      </div>
-    </main >
+    <SmoothScrollLayout>
+      <main className="relative w-full overflow-x-hidden bg-black text-white selection:bg-rose-500">
+        <ParallaxWrapper>
+          <Hero />
+        </ParallaxWrapper>
+        <About />
+        <Tracks />
+        <FAQ />
+        <Footer />
+        <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50">
+          <FloatingDock
+            items={navItems}
+            desktopClassName="bg-viking-charcoal/80 backdrop-blur-md border border-viking-maroon hover:border-viking-crimson hover:shadow-[0_0_15px_rgba(153,27,27,0.5)] transition-all duration-300"
+          />
+        </div>
+      </main >
+    </SmoothScrollLayout>
   )
 }
 
