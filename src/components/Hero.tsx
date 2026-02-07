@@ -31,7 +31,7 @@ const calculateTimeLeft = (): TimeLeft => {
     return timeLeft;
 };
 
-export function Hero() {
+export function Hero({ session, isRegistered }: { session: any, isRegistered: boolean }) {
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -41,6 +41,18 @@ export function Hero() {
         }, 1000);
         return () => clearInterval(timer);
     }, []);
+
+    const handleSagaDetails = () => {
+        if (!session) {
+            setIsLoginModalOpen(true);
+        } else if (isRegistered) {
+            alert("Welcome back, warrior. The saga unfolds before you.");
+            // Navigate to saga details or show content
+        } else {
+            // Should theoretically be handled by App.tsx redirection, but safe fallback
+            window.location.reload();
+        }
+    }
 
     return (
         <section className="relative flex flex-col items-center justify-center min-h-screen bg-transparent overflow-hidden font-sans">
@@ -70,17 +82,23 @@ export function Hero() {
                             </h2>
 
                             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-10 w-full px-4">
-                                <Button
-                                    onClick={() => setIsLoginModalOpen(true)}
-                                    className="bg-viking-crimson hover:bg-red-800 text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto"
-                                >
-                                    Join the Raid
-                                </Button>
+                                {!isRegistered && (
+                                    <Button
+                                        onClick={() => setIsLoginModalOpen(true)}
+                                        className="bg-viking-crimson hover:bg-red-800 text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto"
+                                    >
+                                        Join the Raid
+                                    </Button>
+                                )}
                                 <Button className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto">
                                     Become an Ally
                                 </Button>
-                                <Button variant="outline" className="bg-transparent text-viking-gold border-2 border-viking-gold hover:bg-viking-gold/10 font-bold text-lg px-8 py-6 rounded-none uppercase tracking-widest w-full md:w-auto">
-                                    Saga Details
+                                <Button
+                                    onClick={handleSagaDetails}
+                                    variant="outline"
+                                    className="bg-transparent text-viking-gold border-2 border-viking-gold hover:bg-viking-gold/10 font-bold text-lg px-8 py-6 rounded-none uppercase tracking-widest w-full md:w-auto"
+                                >
+                                    {session && isRegistered ? "Enter Saga" : "Saga Details"}
                                 </Button>
                             </div>
                         </div>

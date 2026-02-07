@@ -19,20 +19,40 @@ import { SmoothScrollLayout } from "@/components/SmoothScrollLayout";
 
 function App() {
   const [session, setSession] = useState<any>(null);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session) checkRegistration(session.user.id);
+      else setLoading(false);
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      if (session) checkRegistration(session.user.id);
+      else {
+        setIsRegistered(false);
+        setLoading(false);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const checkRegistration = async (userId: string) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('id', userId)
+      .single();
+
+    if (data) setIsRegistered(true);
+    setLoading(false);
+  };
 
   const navItems = [
     { title: "Home", icon: <IconBuildingCastle className="h-full w-full text-neutral-500 dark:text-neutral-300" />, href: "#" },
@@ -41,7 +61,7 @@ function App() {
     { title: "FAQ", icon: <IconHelpCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />, href: "#faq" },
   ];
 
-  if (session) {
+  if (session && !isRegistered) {
     return (
       <SmoothScrollLayout>
         <main className="relative w-full overflow-x-hidden bg-black text-white selection:bg-rose-500 min-h-screen">
@@ -63,7 +83,7 @@ function App() {
     <SmoothScrollLayout>
       <main className="relative w-full overflow-x-hidden bg-black text-white selection:bg-rose-500">
         <ParallaxWrapper>
-          <Hero />
+          <Hero session={session} isRegistered={isRegistered} />
         </ParallaxWrapper>
         <About />
         <Tracks />
