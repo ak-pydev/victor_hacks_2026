@@ -107,10 +107,10 @@ const AccordionItem = ({
 }) => {
     return (
         <div className={cn(
-            "border-2 rounded-xl overflow-hidden backdrop-blur-md transition-all duration-300",
+            "rounded-xl overflow-hidden backdrop-blur-md transition-all duration-300",
             isOpen
-                ? "bg-viking-charcoal border-viking-crimson shadow-[0_0_15px_rgba(153,27,27,0.3)]"
-                : "bg-viking-charcoal/60 border-viking-maroon hover:border-viking-crimson/50"
+                ? "bg-transparent shadow-[0_0_15px_rgba(153,27,27,0.3)]"
+                : "bg-transparent"
         )}>
             <button
                 onClick={onClick}
@@ -123,10 +123,10 @@ const AccordionItem = ({
                     {question}
                 </span>
                 <div className={cn(
-                    "p-2 rounded-lg border-2 transition-all duration-300",
+                    "p-2 rounded-lg transition-all duration-300",
                     isOpen
-                        ? "bg-viking-crimson border-viking-gold text-white rotate-180"
-                        : "bg-black/40 border-viking-maroon text-gray-400 group-hover:border-viking-crimson group-hover:text-white"
+                        ? "bg-viking-crimson text-white rotate-180"
+                        : "bg-black/40 text-gray-400 group-hover:text-white"
                 )}>
                     <IconPlus size={20} className={cn("transition-transform duration-300", isOpen && "rotate-45")} />
                 </div>
@@ -139,7 +139,7 @@ const AccordionItem = ({
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                        <div className="p-6 pt-0 text-gray-300 text-base leading-relaxed font-body border-t border-viking-maroon/30">
+                        <div className="p-6 pt-0 text-gray-300 text-base leading-relaxed font-body">
                             {answer}
                         </div>
                     </motion.div>
@@ -149,6 +149,10 @@ const AccordionItem = ({
     );
 };
 
+import Lightning from "@/components/ui/Lightning";
+
+// ... (existing imports)
+
 export function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -157,8 +161,12 @@ export function FAQ() {
     };
 
     return (
-        <section id="faq" className="w-full py-24 bg-viking-leather relative overflow-hidden font-sans">
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-leather.png')] opacity-20 pointer-events-none mix-blend-overlay" />
+        <section id="faq" className="w-full py-24 relative overflow-hidden font-sans" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)' }}>
+
+            {/* Full Background Lightning */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40 mix-blend-screen">
+                <Lightning hue={200} speed={0.3} intensity={1} />
+            </div>
 
             <div className="max-w-4xl mx-auto px-4 relative z-10">
                 <h2 className="text-5xl md:text-7xl font-black text-center mb-16 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400 font-heading uppercase drop-shadow-[0_4px_0_rgba(0,0,0,1)]">

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero_image.jpg";
 import { Button } from "@/components/ui/button";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform, useMotionTemplate } from "motion/react";
 
 const TARGET_DATE = new Date("2026-04-12T00:00:00");
 
@@ -60,22 +60,20 @@ export function Hero() {
                                 <TimeBlock value={timeLeft.seconds} label="SECS" />
                             </motion.div>
 
-                            <motion.h1
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="text-6xl md:text-9xl font-heading text-transparent bg-clip-text bg-gradient-to-b from-viking-gold to-yellow-600 drop-shadow-[0_4px_0_rgba(0,0,0,1)] filter"
-                            >
-                                VICTOR HACKS
-                            </motion.h1>
-                            <h2 className="text-2xl md:text-4xl font-bold text-white mt-2 tracking-[0.2em] font-body uppercase text-shadow-sm">
+                            <HeroTitle />
+
+                            <h2 className="text-xl md:text-4xl font-bold text-white mt-2 tracking-[0.2em] font-body uppercase text-shadow-sm text-center">
                                 The Spoils of Victory
                             </h2>
 
-                            <div className="flex gap-6 mt-10">
-                                <Button className="bg-viking-crimson hover:bg-red-800 text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest">
+                            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-10 w-full px-4">
+                                <Button className="bg-viking-crimson hover:bg-red-800 text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto">
                                     Join the Raid
                                 </Button>
-                                <Button variant="outline" className="bg-transparent text-viking-gold border-2 border-viking-gold hover:bg-viking-gold/10 font-bold text-lg px-8 py-6 rounded-none uppercase tracking-widest">
+                                <Button className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto">
+                                    Become an Ally
+                                </Button>
+                                <Button variant="outline" className="bg-transparent text-viking-gold border-2 border-viking-gold hover:bg-viking-gold/10 font-bold text-lg px-8 py-6 rounded-none uppercase tracking-widest w-full md:w-auto">
                                     Saga Details
                                 </Button>
                             </div>
@@ -95,10 +93,26 @@ export function Hero() {
 }
 
 const TimeBlock = ({ value, label }: { value: number; label: string }) => (
-    <div className="flex flex-col items-center bg-viking-leather border-2 border-viking-gold p-3 min-w-[80px] shadow-[4px_4px_0px_0px_#000]">
-        <span className="text-3xl font-heading text-white">{String(value).padStart(2, '0')}</span>
-        <span className="text-[10px] font-bold text-viking-gold tracking-widest">{label}</span>
+    <div className="flex flex-col items-center bg-viking-leather border-2 border-viking-gold p-2 md:p-3 min-w-[60px] md:min-w-[80px] shadow-[4px_4px_0px_0px_#000]">
+        <span className="text-2xl md:text-3xl font-heading text-white">{String(value).padStart(2, '0')}</span>
+        <span className="text-[8px] md:text-[10px] font-bold text-viking-gold tracking-widest">{label}</span>
     </div>
 );
 
 
+const HeroTitle = () => {
+    const { scrollY } = useScroll();
+    const shadowY = useTransform(scrollY, [0, 500], [4, 20]);
+    const shadowBlur = useTransform(scrollY, [0, 500], [0, 10]);
+
+    return (
+        <motion.h1
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            style={{ textShadow: useMotionTemplate`0px ${shadowY}px ${shadowBlur}px rgba(0,0,0,0.8)` }}
+            className="text-4xl md:text-6xl lg:text-9xl font-heading text-transparent bg-clip-text bg-gradient-to-b from-viking-gold to-yellow-600 filter text-center leading-tight"
+        >
+            VICTOR HACKS
+        </motion.h1>
+    );
+};
