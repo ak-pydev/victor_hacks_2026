@@ -20,13 +20,11 @@ import { SmoothScrollLayout } from "@/components/SmoothScrollLayout";
 function App() {
   const [session, setSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       if (session) checkRegistration(session.user.id);
-      else setLoading(false);
     });
 
     const {
@@ -36,7 +34,6 @@ function App() {
       if (session) checkRegistration(session.user.id);
       else {
         setIsRegistered(false);
-        setLoading(false);
       }
     });
 
@@ -44,14 +41,13 @@ function App() {
   }, []);
 
   const checkRegistration = async (userId: string) => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('profiles')
       .select('id')
       .eq('id', userId)
       .single();
 
     if (data) setIsRegistered(true);
-    setLoading(false);
   };
 
   const navItems = [
