@@ -91,29 +91,31 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
                                         Join the Raid
                                     </Button>
                                 )}
-                                onClick={() => window.open("https://forms.gle/2agGa7yhTyyroLNs7", "_blank")}
-                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto">
-                                Become an Ally
-                            </Button>
-                            <Button
-                                onClick={handleSagaDetails}
-                                variant="outline"
-                                className="bg-transparent text-viking-gold border-2 border-viking-gold hover:bg-viking-gold/10 font-bold text-lg px-8 py-6 rounded-none uppercase tracking-widest w-full md:w-auto"
-                            >
-                                {session && isRegistered ? "Enter Saga" : "Saga Details"}
-                            </Button>
-                        </div>
+                                <Button
+                                    onClick={() => window.open("https://forms.gle/2agGa7yhTyyroLNs7", "_blank")}
+                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto"
+                                >
+                                    Become an Ally
+                                </Button>
+                                <Button
+                                    onClick={handleSagaDetails}
+                                    variant="outline"
+                                    className="bg-transparent text-viking-gold border-2 border-viking-gold hover:bg-viking-gold/10 font-bold text-lg px-8 py-6 rounded-none uppercase tracking-widest w-full md:w-auto"
+                                >
+                                    {session && isRegistered ? "Enter Saga" : "Saga Details"}
+                                </Button>
+                            </div>
                         </div>
                     }
                 >
-            <img
-                src={heroImage}
-                alt="hero"
-                className="mx-auto rounded-none object-cover h-full object-center md:object-left-top w-full border-4 border-viking-gold/50"
-                draggable={false}
-                fetchPriority="high"
-            />
-        </ContainerScroll>
+                    <img
+                        src={heroImage}
+                        alt="hero"
+                        className="mx-auto rounded-none object-cover h-full object-center md:object-left-top w-full border-4 border-viking-gold/50"
+                        draggable={false}
+                        fetchPriority="high"
+                    />
+                </ContainerScroll>
             </div >
         </section >
     );
