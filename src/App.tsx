@@ -17,9 +17,12 @@ import { About } from "@/components/About";
 import { Tracks } from "@/components/Tracks";
 import { SmoothScrollLayout } from "@/components/SmoothScrollLayout";
 
+import { UserProfile } from "@/components/UserProfile";
+
 function App() {
   const [session, setSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [userProfile, setUserProfile] = useState<any>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -34,6 +37,7 @@ function App() {
       if (session) checkRegistration(session.user.id);
       else {
         setIsRegistered(false);
+        setUserProfile(null);
       }
     });
 
@@ -43,11 +47,14 @@ function App() {
   const checkRegistration = async (userId: string) => {
     const { data } = await supabase
       .from('profiles')
-      .select('id')
+      .select('first_name, last_name, email')
       .eq('id', userId)
       .single();
 
-    if (data) setIsRegistered(true);
+    if (data) {
+      setIsRegistered(true);
+      setUserProfile(data);
+    }
   };
 
   const navItems = [
@@ -61,7 +68,7 @@ function App() {
     return (
       <SmoothScrollLayout>
         <main className="relative w-full overflow-x-hidden bg-black text-white selection:bg-rose-500 min-h-screen">
-          <RegistrationForm session={session} onComplete={() => setIsRegistered(true)} />
+          <RegistrationForm session={session} onComplete={() => checkRegistration(session.user.id)} />
           <div className="fixed right-4 bottom-4 z-50">
             <button
               onClick={() => supabase.auth.signOut()}
@@ -91,6 +98,13 @@ function App() {
             desktopClassName="bg-viking-charcoal/80 backdrop-blur-md border border-viking-maroon hover:border-viking-crimson hover:shadow-[0_0_15px_rgba(153,27,27,0.5)] transition-all duration-300"
           />
         </div>
+
+        {/* User Profile - Top Right */}
+        {session && isRegistered && userProfile && (
+          <div className="fixed right-6 top-6 z-[60]">
+            <UserProfile profile={userProfile} onSignOut={() => supabase.auth.signOut()} />
+          </div>
+        )}
       </main >
     </SmoothScrollLayout>
   )
