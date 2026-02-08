@@ -16,6 +16,7 @@ import { Footer } from "@/components/Footer"
 import { About } from "@/components/About";
 import { Tracks } from "@/components/Tracks";
 import { SmoothScrollLayout } from "@/components/SmoothScrollLayout";
+import mlhBadge from "@/assets/mlh.png";
 
 import { UserProfile } from "@/components/UserProfile";
 
@@ -113,6 +114,14 @@ function App() {
   return (
     <SmoothScrollLayout>
       <main className="relative w-full overflow-x-hidden bg-black text-white selection:bg-rose-500">
+        <a
+          href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2026-season&utm_content=white"
+          target="_blank"
+          rel="noreferrer"
+          className="fixed top-0 left-4 md:left-10 z-[60] w-12 md:w-20"
+        >
+          <img src={mlhBadge} alt="Major League Hacking 2026 Hackathon Season" className="w-full" />
+        </a>
         <ParallaxWrapper>
           <Hero session={session} isRegistered={isRegistered} />
         </ParallaxWrapper>
