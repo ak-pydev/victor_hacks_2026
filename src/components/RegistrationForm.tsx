@@ -25,7 +25,6 @@ const formSchema = z.object({
     pronouns: z.string().min(1, "Required"),
     race_ethnicity: z.string().min(1, "Required"),
     sexual_orientation: z.string().min(1, "Required"),
-    highest_education: z.string().min(1, "Required"),
 
     // Logistics
     tshirt_size: z.string().optional(),
@@ -56,7 +55,7 @@ export function RegistrationForm({ session }: { session: any }) {
     const steps = [
         { id: 'identity', title: 'Identity', fields: ['first_name', 'last_name', 'age', 'phone', 'email'] },
         { id: 'origin', title: 'Origin', fields: ['school', 'level_of_study', 'country_of_residence', 'major', 'linkedin_url'] },
-        { id: 'demographics', title: 'Demographics', fields: ['gender', 'pronouns', 'race_ethnicity', 'sexual_orientation', 'underrepresented_group', 'highest_education'] },
+        { id: 'demographics', title: 'Demographics', fields: ['gender', 'pronouns', 'race_ethnicity', 'sexual_orientation', 'underrepresented_group'] },
         { id: 'logistics', title: 'Logistics', fields: ['tshirt_size', 'dietary_restrictions', 'shipping_address_line1', 'shipping_address_line2', 'shipping_city', 'shipping_state', 'shipping_country', 'shipping_pincode'] },
         { id: 'compliance', title: 'Agreements', fields: ['gdg_code_of_conduct', 'victor_hacks_rules', 'mlh_code_of_conduct', 'mlh_privacy_policy', 'mlh_emails'] }
     ];
@@ -204,9 +203,7 @@ export function RegistrationForm({ session }: { session: any }) {
                                 ]} />
                                 <Select label="Sexual Orientation" error={errors.sexual_orientation} registration={register("sexual_orientation")} options={["Heterosexual/Straight", "Gay/Lesbian", "Bisexual", "Different identity", "Prefer Not to Answer"]} />
                                 <Select label="Underrepresented Group?" error={errors.underrepresented_group} registration={register("underrepresented_group")} options={["Yes", "No", "Unsure"]} />
-                                <Select label="Highest Education Completed" error={errors.highest_education} registration={register("highest_education")} options={[
-                                    "Less than Secondary / High School", "Secondary / High School", "Undergraduate University (2 year)", "Undergraduate University (3+ year)", "Graduate University", "Code School / Bootcamp", "Other Vocational", "Other", "Not a student", "Prefer not to answer"
-                                ]} />
+
                             </Section>
                         </motion.div>
                     )}
