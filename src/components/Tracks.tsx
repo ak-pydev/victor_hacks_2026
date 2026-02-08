@@ -35,12 +35,15 @@ export function Tracks() {
                             label: "Most Technically Impressive",
                             description: "Celebrates the most complex \"Seidr\" (magic) implementations, deep neural networks, or raw engineering power.",
                             icon: <IconBrain className="h-6 w-6" />,
+                            colSpan: 2,
+                            className: "md:col-span-2"
                         },
                         {
                             title: "The Merchant’s Voyage",
                             label: "Best Business Plan",
                             description: "For the project with the most scalable model and a clear market \"raiding\" strategy.",
                             icon: <IconCurrencyDollar className="h-6 w-6" />,
+                            colSpan: 1,
                             className: "md:col-span-1"
                         },
                         {
@@ -48,19 +51,24 @@ export function Tracks() {
                             label: "Best Social Impact",
                             description: "Dedicated to solutions that protect the community, environment, or solve humanitarian challenges.",
                             icon: <IconHeart className="h-6 w-6" />,
+                            colSpan: 1,
+                            className: "md:col-span-1"
                         },
-
                         {
                             title: "The Bifröst Bridge",
                             label: "Generative AI & LLMs",
                             description: "New Track. Focuses on using Gen AI to bridge the gap between human intent and machine execution—think AI agents, fine-tuned models.",
                             icon: <IconRocket className="h-6 w-6" />,
+                            colSpan: 2,
+                            className: "md:col-span-2"
                         },
                         {
                             title: "The Valkyrie’s Choice",
                             label: "People's Choice",
                             description: "The project that earns the most favor from the collective \"shield-wall\" of attendees.",
                             icon: <IconChartBar className="h-6 w-6" />,
+                            colSpan: 1,
+                            className: "md:col-span-1"
                         },
                         {
                             title: "Ragnarök’s Chaos",
