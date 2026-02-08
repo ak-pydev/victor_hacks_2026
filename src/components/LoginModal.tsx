@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import { IconBrandGithub, IconBrandGoogle, IconX } from "@tabler/icons-react";
+import { IconBrandGithub, IconX } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/supabaseClient";
 
@@ -16,12 +16,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
         if (error) console.error('Error logging in:', error.message);
     };
 
-    const handleGoogleLogin = async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-        });
-        if (error) console.error('Error logging in with Google:', error.message);
-    };
+
 
     return (
         <AnimatePresence>
@@ -75,13 +70,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                                     <span>Sign in with GitHub</span>
                                 </Button>
 
-                                <Button
-                                    onClick={handleGoogleLogin}
-                                    className="w-full bg-white hover:bg-gray-200 text-black font-bold text-lg py-6 border-2 border-gray-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] transition-all uppercase tracking-wider flex items-center justify-center gap-3 group"
-                                >
-                                    <IconBrandGoogle className="text-red-500 group-hover:scale-110 transition-transform" size={24} />
-                                    <span>Sign in with Google</span>
-                                </Button>
+
                             </div>
 
                             <p className="text-xs text-gray-500 italic mt-4">
