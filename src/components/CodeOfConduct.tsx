@@ -66,6 +66,11 @@ export function CodeOfConduct({ onBack }: { onBack: () => void }) {
                         Harassment at events and in online communities is unfortunately common. Creating an official policy aims to improve this by making it clear that harassment of anyone for any reason is not acceptable within our events and communities. This policy may prevent harassment by clearly defining expectations for behavior, aims to provide reassurance, and encourages people who have had bad experiences at other events to participate in this one.
                     </p>
 
+                    <h2 className="text-2xl font-bold text-white mt-8 mb-4">MLH Code of Conduct</h2>
+                    <p>
+                        Please note that this event operates under the <a href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Code of Conduct</a>.
+                    </p>
+
                     <h2 className="text-2xl font-bold text-white mt-8 mb-4">License and attribution</h2>
                     <p className="text-sm text-gray-400">
                         This policy is licensed under the Creative Commons Zero license.
