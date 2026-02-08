@@ -18,14 +18,14 @@ const formSchema = z.object({
     country_of_residence: z.string().min(1, "Country is required"),
     linkedin_url: z.string().url("Invalid LinkedIn URL").min(1, "LinkedIn URL is required"),
 
-    // Demographics (Optional)
+    // Demographics
     dietary_restrictions: z.string().optional(),
-    underrepresented_group: z.string().optional(),
-    gender: z.string().optional(),
-    pronouns: z.string().optional(),
-    race_ethnicity: z.string().optional(),
-    sexual_orientation: z.string().optional(),
-    highest_education: z.string().optional(),
+    underrepresented_group: z.string().min(1, "Required"),
+    gender: z.string().min(1, "Required"),
+    pronouns: z.string().min(1, "Required"),
+    race_ethnicity: z.string().min(1, "Required"),
+    sexual_orientation: z.string().min(1, "Required"),
+    highest_education: z.string().min(1, "Required"),
 
     // Logistics
     tshirt_size: z.string().optional(),
@@ -194,7 +194,7 @@ export function RegistrationForm({ session }: { session: any }) {
 
                     {currentStep === 2 && (
                         <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-                            <Section title="Demographics (Optional)">
+                            <Section title="Demographics">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <Select label="Gender" error={errors.gender} registration={register("gender")} options={["Man", "Woman", "Non-Binary", "Prefer to self-describe", "Prefer Not to Answer"]} />
                                     <Select label="Pronouns" error={errors.pronouns} registration={register("pronouns")} options={["She/Her", "He/Him", "They/Them", "She/They", "He/They", "Prefer Not to Answer", "Other"]} />
