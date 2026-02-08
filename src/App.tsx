@@ -23,21 +23,28 @@ function App() {
   const [session, setSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [userProfile, setUserProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      if (session) checkRegistration(session.user.id);
+      if (session) {
+        checkRegistration(session.user.id);
+      } else {
+        setLoading(false);
+      }
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      if (session) checkRegistration(session.user.id);
-      else {
+      if (session) {
+        checkRegistration(session.user.id);
+      } else {
         setIsRegistered(false);
         setUserProfile(null);
+        setLoading(false);
       }
     });
 
@@ -45,15 +52,21 @@ function App() {
   }, []);
 
   const checkRegistration = async (userId: string) => {
-    const { data } = await supabase
-      .from('profiles')
-      .select('first_name, last_name, email')
-      .eq('id', userId)
-      .single();
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('first_name, last_name, email')
+        .eq('id', userId)
+        .single();
 
-    if (data) {
-      setIsRegistered(true);
-      setUserProfile(data);
+      if (data) {
+        setIsRegistered(true);
+        setUserProfile(data);
+      }
+    } catch (error) {
+      console.error("Error checking registration:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,6 +76,14 @@ function App() {
     { title: "Tracks", icon: <IconMap2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />, href: "#tracks" },
     { title: "FAQ", icon: <IconHelpCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />, href: "#faq" },
   ];
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-black text-viking-gold">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-viking-gold"></div>
+      </div>
+    );
+  }
 
   if (session && !isRegistered) {
     return (
