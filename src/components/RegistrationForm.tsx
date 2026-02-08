@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "motion/react";
 const formSchema = z.object({
     first_name: z.string().min(1, "First Name is required"),
     last_name: z.string().min(1, "Last Name is required"),
-    age: z.string().min(1, "Age is required"),
+    age: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 16, { message: "You must be at least 16 years old." }),
     phone: z.string().min(1, "Phone number is required"),
     email: z.string().email("Invalid email address"),
     school: z.string().min(1, "School is required"),
