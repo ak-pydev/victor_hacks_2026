@@ -8,6 +8,7 @@ import {
     IconHeart,
     IconRocket,
     IconSoup,
+    IconVolume,
 } from "@tabler/icons-react";
 
 export function Tracks() {
@@ -74,8 +75,16 @@ export function Tracks() {
                             label: "Surprise Track",
                             description: "A hidden track revealed mid-competition to challenge raiders with a sudden technical pivot.",
                             icon: <IconSoup className="h-6 w-6" />,
-                            colSpan: 2,
-                            className: "md:col-span-2"
+                            colSpan: 1,
+                            className: "md:col-span-1"
+                        },
+                        {
+                            title: "Voice of the Gods",
+                            label: "Best with ElevenLabs",
+                            description: "Most innovative use of ElevenLabs' voice AI technology to bring applications to life.",
+                            icon: <IconVolume className="h-6 w-6" />,
+                            colSpan: 1,
+                            className: "md:col-span-1"
                         }
                     ]}
                 />
