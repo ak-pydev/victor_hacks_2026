@@ -40,8 +40,6 @@ const formSchema = z.object({
     gdg_code_of_conduct: z.boolean().refine(val => val === true, { message: "You must agree to the GDG Code of Conduct" }),
     victor_hacks_rules: z.boolean().refine(val => val === true, { message: "You must agree to the Victor Hacks Rules" }),
     mlh_code_of_conduct: z.boolean().refine(val => val === true, { message: "You must agree to the MLH Code of Conduct" }),
-    mlh_privacy_policy: z.boolean().refine(val => val === true, { message: "You must agree to the MLH Privacy Policy and Contest Terms" }),
-    mlh_emails: z.boolean().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -57,7 +55,7 @@ export function RegistrationForm({ session }: { session: any }) {
         { id: 'origin', title: 'Origin', fields: ['school', 'level_of_study', 'country_of_residence', 'major', 'linkedin_url'] },
         { id: 'demographics', title: 'Demographics', fields: ['gender', 'pronouns', 'race_ethnicity', 'sexual_orientation', 'underrepresented_group'] },
         { id: 'logistics', title: 'Logistics', fields: ['tshirt_size', 'dietary_restrictions', 'shipping_address_line1', 'shipping_address_line2', 'shipping_city', 'shipping_state', 'shipping_country', 'shipping_pincode'] },
-        { id: 'compliance', title: 'Agreements', fields: ['gdg_code_of_conduct', 'victor_hacks_rules', 'mlh_code_of_conduct', 'mlh_privacy_policy', 'mlh_emails'] }
+        { id: 'compliance', title: 'Agreements', fields: ['gdg_code_of_conduct', 'victor_hacks_rules', 'mlh_code_of_conduct'] }
     ];
 
     const {
@@ -69,7 +67,6 @@ export function RegistrationForm({ session }: { session: any }) {
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: session?.user?.email || "",
-            mlh_emails: false,
         }
     });
 
@@ -254,18 +251,6 @@ export function RegistrationForm({ session }: { session: any }) {
                                     label={<span>I have read and agree to the <a href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Code of Conduct</a>.</span>}
                                     error={errors.mlh_code_of_conduct}
                                     registration={register("mlh_code_of_conduct")}
-                                />
-
-                                <Checkbox
-                                    label={<span>I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Privacy Policy</a>. I further agree to the terms of both the <a href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Contest Terms and Conditions</a> and the <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Privacy Policy</a>.</span>}
-                                    error={errors.mlh_privacy_policy}
-                                    registration={register("mlh_privacy_policy")}
-                                />
-
-                                <Checkbox
-                                    label={<span>I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements.</span>}
-                                    error={errors.mlh_emails}
-                                    registration={register("mlh_emails")}
                                 />
                             </Section>
                         </motion.div>
