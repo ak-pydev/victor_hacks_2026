@@ -107,7 +107,7 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
                     <img
                         src={heroImage}
                         alt="hero"
-                        className="mx-auto rounded-none object-cover h-full object-left-top w-full border-4 border-viking-gold/50"
+                        className="mx-auto rounded-none object-cover h-full object-center md:object-left-top w-full border-4 border-viking-gold/50"
                         draggable={false}
                         fetchPriority="high"
                     />
