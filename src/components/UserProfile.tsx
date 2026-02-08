@@ -4,10 +4,11 @@ import { IconLogout, IconUser } from "@tabler/icons-react";
 
 interface UserProfileProps {
     profile: any;
+    avatarUrl?: string;
     onSignOut: () => void;
 }
 
-export function UserProfile({ profile, onSignOut }: UserProfileProps) {
+export function UserProfile({ profile, avatarUrl, onSignOut }: UserProfileProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     const initials = profile?.first_name && profile?.last_name
@@ -20,9 +21,13 @@ export function UserProfile({ profile, onSignOut }: UserProfileProps) {
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-viking-leather border-2 border-viking-gold flex items-center justify-center text-viking-gold font-heading font-bold shadow-[0_0_10px_rgba(251,191,36,0.3)] hover:shadow-[0_0_15px_rgba(251,191,36,0.5)] transition-shadow z-50 relative"
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-viking-leather border-2 border-viking-gold flex items-center justify-center text-viking-gold font-heading font-bold shadow-[0_0_10px_rgba(251,191,36,0.3)] hover:shadow-[0_0_15px_rgba(251,191,36,0.5)] transition-shadow z-50 relative overflow-hidden"
             >
-                {initials}
+                {avatarUrl ? (
+                    <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                    initials
+                )}
             </motion.button>
 
             <AnimatePresence>
