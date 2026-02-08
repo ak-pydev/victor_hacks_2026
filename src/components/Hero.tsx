@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero_image.jpg";
 import { Button } from "@/components/ui/button";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { motion, useScroll, useTransform, useMotionTemplate } from "motion/react";
+import { motion, useScroll, useTransform, useMotionTemplate, AnimatePresence } from "motion/react";
 import { LoginModal } from "@/components/LoginModal";
 
 const TARGET_DATE = new Date("2026-04-12T00:00:00");
