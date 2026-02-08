@@ -132,7 +132,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-4xl mx-auto p-6 md:p-12 bg-black/90 backdrop-blur-md border-2 border-viking-gold shadow-[0_0_30px_rgba(251,191,36,0.2)] rounded-sm my-20 relative overflow-hidden"
+            className="w-full max-w-4xl mx-auto p-4 md:p-12 bg-black/90 backdrop-blur-md border-2 border-viking-gold shadow-[0_0_30px_rgba(251,191,36,0.2)] rounded-sm my-10 md:my-20 relative overflow-hidden"
         >
             {/* Decorative Corner Borders */}
             <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-viking-gold z-10"></div>
@@ -140,7 +140,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
             <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-viking-gold z-10"></div>
             <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-viking-gold z-10"></div>
 
-            <h2 className="text-4xl md:text-6xl font-heading text-transparent bg-clip-text bg-gradient-to-b from-viking-gold to-yellow-700 mb-8 text-center uppercase tracking-widest drop-shadow-md">Hacker Registration</h2>
+            <h2 className="text-3xl md:text-6xl font-heading text-transparent bg-clip-text bg-gradient-to-b from-viking-gold to-yellow-700 mb-8 text-center uppercase tracking-widest drop-shadow-md">Hacker Registration</h2>
 
             {/* Stepper Progress */}
             <div className="flex justify-between mb-12 relative z-20 px-2">
@@ -271,7 +271,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
                         <Button
                             type="button"
                             onClick={back}
-                            className="bg-transparent border-2 border-gray-500 text-gray-300 hover:border-viking-gold hover:text-viking-gold font-heading px-8 py-6 rounded-none uppercase tracking-widest transition-all"
+                            className="bg-transparent border-2 border-gray-500 text-gray-300 hover:border-viking-gold hover:text-viking-gold font-heading px-6 py-4 md:px-8 md:py-6 rounded-none uppercase tracking-widest transition-all"
                         >
                             Back
                         </Button>
@@ -281,7 +281,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
                         disabled={isSubmitting}
                         type="button"
                         onClick={next}
-                        className="ml-auto bg-viking-crimson hover:bg-red-800 text-white font-heading font-bold text-xl px-12 py-6 rounded-none border-2 border-viking-gold shadow-[0_0_15px_rgba(251,191,36,0.3)] uppercase tracking-[0.2em] transition-all hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(251,191,36,0.6)] disabled:opacity-50"
+                        className="ml-auto bg-viking-crimson hover:bg-red-800 text-white font-heading font-bold text-lg md:text-xl px-8 py-4 md:px-12 md:py-6 rounded-none border-2 border-viking-gold shadow-[0_0_15px_rgba(251,191,36,0.3)] uppercase tracking-[0.2em] transition-all hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(251,191,36,0.6)] disabled:opacity-50"
                     >
                         {isSubmitting ? "Scribing..." : (currentStep === steps.length - 1 ? "Inscribe" : "Next")}
                     </Button>
@@ -296,7 +296,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
 function Section({ title, children }: { title: string, children: React.ReactNode }) {
     return (
         <div className="border-b border-viking-maroon/50 pb-10 last:border-0">
-            <h3 className="text-3xl font-heading font-bold text-viking-gold mb-8 tracking-wide border-l-4 border-viking-crimson pl-4 drop-shadow-sm">{title}</h3>
+            <h3 className="text-2xl md:text-3xl font-heading font-bold text-viking-gold mb-6 md:mb-8 tracking-wide border-l-4 border-viking-crimson pl-4 drop-shadow-sm">{title}</h3>
             <div className="space-y-6">
                 {children}
             </div>
@@ -313,7 +313,7 @@ function Input({ label, type = "text", error, registration, placeholder, readOnl
                 {...registration}
                 placeholder={placeholder}
                 readOnly={readOnly}
-                className={`w-full bg-viking-leather/40 border-2 ${error ? 'border-viking-crimson' : 'border-viking-maroon focus:border-viking-gold'} text-white p-4 rounded-none outline-none transition-all duration-300 placeholder:text-gray-600 focus:bg-viking-leather/60 focus:shadow-[0_0_10px_rgba(251,191,36,0.1)]`}
+                className={`w-full bg-viking-leather/40 border-2 ${error ? 'border-viking-crimson' : 'border-viking-maroon focus:border-viking-gold'} text-white p-3 md:p-4 rounded-none outline-none transition-all duration-300 placeholder:text-gray-600 focus:bg-viking-leather/60 focus:shadow-[0_0_10px_rgba(251,191,36,0.1)]`}
             />
             {error && <span className="text-viking-crimson text-xs font-bold tracking-wide">{error.message}</span>}
         </div>

@@ -39,7 +39,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-md bg-viking-charcoal border-2 border-viking-gold shadow-[0_0_50px_rgba(251,191,36,0.3)] p-8 md:p-12 overflow-hidden"
+                        className="relative w-full max-w-md bg-viking-charcoal border-2 border-viking-gold shadow-[0_0_50px_rgba(251,191,36,0.3)] p-6 md:p-12 overflow-hidden"
                     >
                         {/* Decorative Corner Borders */}
                         <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-viking-gold z-10"></div>
@@ -56,7 +56,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                         </button>
 
                         <div className="relative z-10 flex flex-col items-center text-center space-y-6">
-                            <h2 className="text-3xl font-heading text-viking-gold uppercase tracking-widest drop-shadow-sm">
+                            <h2 className="text-2xl md:text-3xl font-heading text-viking-gold uppercase tracking-widest drop-shadow-sm">
                                 Gate of Valhalla
                             </h2>
 
@@ -67,7 +67,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                             <div className="w-full pt-4 space-y-4">
                                 <Button
                                     onClick={handleLogin}
-                                    className="w-full bg-viking-leather hover:bg-black text-white font-bold text-lg py-6 border-2 border-viking-gold shadow-[0_0_15px_rgba(251,191,36,0.2)] hover:shadow-[0_0_25px_rgba(251,191,36,0.4)] transition-all uppercase tracking-wider flex items-center justify-center gap-3 group"
+                                    className="w-full bg-viking-leather hover:bg-black text-white font-bold text-lg py-4 md:py-6 border-2 border-viking-gold shadow-[0_0_15px_rgba(251,191,36,0.2)] hover:shadow-[0_0_25px_rgba(251,191,36,0.4)] transition-all uppercase tracking-wider flex items-center justify-center gap-3 group"
                                 >
                                     <IconBrandGithub className="group-hover:text-viking-gold transition-colors" size={24} />
                                     <span>Sign in with GitHub</span>
