@@ -50,14 +50,7 @@ export function Tracks() {
                             description: "Dedicated to solutions that protect the community, environment, or solve humanitarian challenges.",
                             icon: <IconHeart className="h-6 w-6" />,
                         },
-                        {
-                            title: "Thor’s Hammer",
-                            label: "Infrastructure & Backend",
-                            description: "Focuses on robust backends, hardware hacks, or high-performance computing \"strikes.\"",
-                            icon: <IconHammer className="h-6 w-6" />,
-                            colSpan: 2,
-                            className: "md:col-span-2"
-                        },
+
                         {
                             title: "The Bifröst Bridge",
                             label: "Generative AI & LLMs",
