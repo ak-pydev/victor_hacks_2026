@@ -61,7 +61,7 @@ function App() {
     return (
       <SmoothScrollLayout>
         <main className="relative w-full overflow-x-hidden bg-black text-white selection:bg-rose-500 min-h-screen">
-          <RegistrationForm session={session} />
+          <RegistrationForm session={session} onComplete={() => setIsRegistered(true)} />
           <div className="fixed right-4 bottom-4 z-50">
             <button
               onClick={() => supabase.auth.signOut()}

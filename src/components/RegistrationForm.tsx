@@ -44,7 +44,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export function RegistrationForm({ session }: { session: any }) {
+export function RegistrationForm({ session, onComplete }: { session: any, onComplete: () => void }) {
     const [currentStep, setCurrentStep] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
@@ -105,6 +105,12 @@ export function RegistrationForm({ session }: { session: any }) {
 
             if (error) throw error;
             setSubmitSuccess(true);
+
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                onComplete();
+            }, 2000);
+
         } catch (error: any) {
             console.error("Submission error:", error);
             setSubmitError(error.message || "An error occurred during submission.");
