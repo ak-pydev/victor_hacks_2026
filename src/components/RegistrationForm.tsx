@@ -16,7 +16,7 @@ const formSchema = z.object({
     school: z.string().min(1, "School is required"),
     level_of_study: z.string().min(1, "Level of study is required"),
     country_of_residence: z.string().min(1, "Country is required"),
-    linkedin_url: z.string().url("Invalid LinkedIn URL").optional().or(z.literal("")),
+    linkedin_url: z.string().url("Invalid LinkedIn URL").min(1, "LinkedIn URL is required"),
 
     // Demographics (Optional)
     dietary_restrictions: z.string().optional(),
@@ -187,7 +187,7 @@ export function RegistrationForm({ session }: { session: any }) {
                                         "Computer science/engineering", "Another engineering discipline", "Information systems/IT", "Natural science", "Math/Statistics", "Web dev/design", "Business", "Humanities", "Social science", "Fine arts", "Health science", "Other", "Undecided", "Prefer not to answer"
                                     ]} />
                                 </div>
-                                <Input label="LinkedIn URL (Optional)" type="url" error={errors.linkedin_url} registration={register("linkedin_url")} />
+                                <Input label="LinkedIn URL" type="url" error={errors.linkedin_url} registration={register("linkedin_url")} />
                             </Section>
                         </motion.div>
                     )}
