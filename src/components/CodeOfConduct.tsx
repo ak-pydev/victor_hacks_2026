@@ -66,6 +66,58 @@ export function CodeOfConduct({ onBack }: { onBack: () => void }) {
                         Harassment at events and in online communities is unfortunately common. Creating an official policy aims to improve this by making it clear that harassment of anyone for any reason is not acceptable within our events and communities. This policy may prevent harassment by clearly defining expectations for behavior, aims to provide reassurance, and encourages people who have had bad experiences at other events to participate in this one.
                     </p>
 
+                    <div className="border-t border-viking-maroon/50 my-10" />
+
+                    <h2 className="text-3xl font-heading text-viking-gold mb-6">Victor Hacks 2026: Code of Conduct & Raider Ethics</h2>
+                    <p className="mb-6">
+                        Welcome to Griffin Hall, the high-tech stronghold of Northern Kentucky University. As a participant of Victor Hacks, you are an ambassador of the "Raider" spirit. This means leaving our resources better than you found them.
+                    </p>
+
+                    <h3 className="text-xl font-bold text-white mt-6 mb-2">1. Respect the Stronghold (Griffin Hall)</h3>
+                    <p>
+                        Griffin Hall is a state-of-the-art facility. We are guests here, and we must treat every room, lab, and common area with extreme care.
+                    </p>
+                    <ul className="list-disc pl-6 space-y-2 mt-2">
+                        <li><strong>Furniture Integrity:</strong> Do not move furniture between rooms or halls without explicit permission from a Victor Hacks organizer or NKU official.</li>
+                        <li><strong>Tech Resources:</strong> The monitors, ports, and workstations in Griffin Hall classrooms are for academic and hackathon use only. Tampering with, defacing, or misusing hardware is strictly prohibited.</li>
+                        <li><strong>Authorized Entry:</strong> Stay within the designated Victor Hacks zones. Entering locked offices or restricted labs is a violation of the NKU Student Code of Conduct.</li>
+                    </ul>
+
+                    <h3 className="text-xl font-bold text-white mt-6 mb-2">2. The Cleanliness Oath</h3>
+                    <p>
+                        A true Raider leaves no trace. Cleanliness is a requirement for the continued success of this event.
+                    </p>
+                    <ul className="list-disc pl-6 space-y-2 mt-2">
+                        <li><strong>Trash & Recycling:</strong> All food wrappers, empty cans, and waste must be placed in the designated bins immediately. If a bin is full, notify an organizer.</li>
+                        <li><strong>Spills & Accidents:</strong> If a spill occurs, do not ignore it. Report it to the Info Desk in the Griffin Hall lobby immediately so we can provide cleaning supplies or notify facilities.</li>
+                        <li><strong>Zero Abandoned Property:</strong> Any personal belongings, electronics, or projects left in common areas or classrooms after the event concludes will be considered abandoned and may be disposed of within 24 hours.</li>
+                    </ul>
+
+                    <h3 className="text-xl font-bold text-white mt-6 mb-2">3. Food & Fuel</h3>
+                    <ul className="list-disc pl-6 space-y-2">
+                        <li><strong>Designated Eating Areas:</strong> All catered meals must be consumed in the designated dining zones. Do not bring messy or open-container food into the tiered classrooms or near sensitive computer equipment.</li>
+                        <li><strong>Catering Courtesy:</strong> When using the Chartwells catering provided, dispose of your plates and utensils in the provided waste stations immediately after eating.</li>
+                    </ul>
+
+                    <h3 className="text-xl font-bold text-white mt-6 mb-2">4. Conduct & Compliance</h3>
+                    <ul className="list-disc pl-6 space-y-2">
+                        <li><strong>Follow Instructions:</strong> You must comply with all reasonable directives from Victor Hacks organizers, Griffin Hall staff, or NKU Police.</li>
+                        <li><strong>Be Inclusive:</strong> Harassment, bullying, or exclusionary behavior of any kind (including sexual language or imagery) will not be tolerated and is grounds for immediate removal.</li>
+                        <li><strong>Academic Integrity:</strong> While collaboration is encouraged, "hacking" does not mean "cheating." Respect the intellectual property of others and do not engage in academic dishonesty.</li>
+                    </ul>
+
+                    <h3 className="text-xl font-bold text-white mt-6 mb-2">5. Consequences of a Breach</h3>
+                    <p>
+                        Violations of this code—especially property damage or littering in Griffin Hall—may result in:
+                    </p>
+                    <ul className="list-disc pl-6 space-y-2 mt-2">
+                        <li>Immediate disqualification from Victor Hacks.</li>
+                        <li>Removal from Griffin Hall premises.</li>
+                        <li>Official Report to the NKU Office of Student Conduct for further adjudication.</li>
+                    </ul>
+
+                    <div className="border-t border-viking-maroon/50 my-10" />
+
                     <h2 className="text-2xl font-bold text-white mt-8 mb-4">MLH Code of Conduct</h2>
                     <p>
                         Please note that this event operates under the <a href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Code of Conduct</a>.
