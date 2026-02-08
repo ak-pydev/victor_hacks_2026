@@ -34,6 +34,7 @@ const calculateTimeLeft = (): TimeLeft => {
 export function Hero({ session, isRegistered }: { session: any, isRegistered: boolean }) {
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [isComingSoonOpen, setIsComingSoonOpen] = useState(false);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -46,8 +47,7 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
         if (!session) {
             setIsLoginModalOpen(true);
         } else if (isRegistered) {
-            alert("Welcome back, warrior. The saga unfolds before you.");
-            // Navigate to saga details or show content
+            setIsComingSoonOpen(true);
         } else {
             // Should theoretically be handled by App.tsx redirection, but safe fallback
             window.location.reload();
@@ -58,6 +58,7 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
         <section className="relative flex flex-col items-center justify-center min-h-screen bg-transparent overflow-hidden font-sans">
             {/* Background removed for ParallaxWrapper */}
             <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+            <ComingSoonModal isOpen={isComingSoonOpen} onClose={() => setIsComingSoonOpen(false)} />
 
             <div className="relative z-10 w-full">
                 <ContainerScroll
@@ -114,6 +115,47 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
                 </ContainerScroll>
             </div>
         </section>
+    );
+}
+
+function ComingSoonModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={onClose}
+                        className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+                    />
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                        className="relative w-full max-w-md bg-viking-charcoal border-2 border-viking-gold shadow-[0_0_50px_rgba(251,191,36,0.3)] p-8 text-center"
+                    >
+                        {/* Decorative Corner Borders */}
+                        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-viking-gold z-10"></div>
+                        <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-viking-gold z-10"></div>
+                        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-viking-gold z-10"></div>
+                        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-viking-gold z-10"></div>
+
+                        <h3 className="text-3xl font-heading text-viking-gold uppercase mb-4 drop-shadow-sm">Prepare Yourself</h3>
+                        <p className="text-white text-lg font-sans mb-6 leading-relaxed">
+                            The battle is on the way! Sharpen your axes and ready your mind. The saga will begin shortly.
+                        </p>
+                        <Button
+                            onClick={onClose}
+                            className="bg-viking-crimson hover:bg-red-800 text-white font-bold uppercase tracking-widest border border-viking-gold"
+                        >
+                            Acknowledge
+                        </Button>
+                    </motion.div>
+                </div>
+            )}
+        </AnimatePresence>
     );
 }
 
