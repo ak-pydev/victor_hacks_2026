@@ -4,7 +4,6 @@ import {
     IconBrain,
     IconChartBar,
     IconCurrencyDollar,
-    IconHammer,
     IconHeart,
     IconRocket,
     IconSoup,
