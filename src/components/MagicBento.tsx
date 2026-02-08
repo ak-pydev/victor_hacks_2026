@@ -13,6 +13,7 @@ export interface BentoCardProps {
   className?: string;
   colSpan?: number;
   rowSpan?: number;
+  backgroundImage?: string;
 }
 
 export interface BentoProps {
@@ -639,6 +640,9 @@ const MagicBento: React.FC<BentoProps> = ({
               '--glow-y': '50%',
               '--glow-intensity': '0',
               '--glow-radius': '200px',
+              backgroundImage: card.backgroundImage ? `url(${card.backgroundImage})` : undefined,
+              backgroundSize: card.backgroundImage ? 'cover' : undefined,
+              backgroundPosition: card.backgroundImage ? 'center' : undefined,
               gridColumn: !isMobile && card.colSpan ? `span ${card.colSpan}` : undefined,
               gridRow: !isMobile && card.rowSpan ? `span ${card.rowSpan}` : undefined
             } as React.CSSProperties;

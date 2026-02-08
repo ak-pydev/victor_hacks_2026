@@ -1,4 +1,4 @@
-import { IconBrandGithub, IconBrandInstagram, IconBrandDiscord } from "@tabler/icons-react";
+import { IconBrandDiscord } from "@tabler/icons-react";
 import { SiDevpost, SiGoogle } from "react-icons/si";
 import logo from "@/assets/logo.svg";
 import Galaxy from "./Galaxy";
@@ -40,11 +40,9 @@ export function Footer({ onOpenCodeOfConduct }: { onOpenCodeOfConduct?: () => vo
                     <p className="font-medium tracking-wide text-viking-gold/80">Made by Aaditya</p>
 
                     <div className="flex items-center gap-6">
-                        <a href="#" className="hover:text-viking-gold hover:scale-110 transition-all duration-300"><IconBrandGithub className="w-6 h-6" /></a>
-                        <a href="#" className="hover:text-viking-gold hover:scale-110 transition-all duration-300"><IconBrandInstagram className="w-6 h-6" /></a>
-                        <a href="#" className="hover:text-viking-gold hover:scale-110 transition-all duration-300"><IconBrandDiscord className="w-6 h-6" /></a>
-                        <a href="#" className="hover:text-viking-gold hover:scale-110 transition-all duration-300"><SiDevpost className="w-6 h-6" /></a>
-                        <a href="#" className="hover:text-viking-gold hover:scale-110 transition-all duration-300"><SiGoogle className="w-6 h-6" /></a>
+                        <a href="https://discord.com/invite/Q6URhaSz55" target="_blank" rel="noopener noreferrer" className="hover:text-viking-gold hover:scale-110 transition-all duration-300"><IconBrandDiscord className="w-6 h-6" /></a>
+                        <a href="https://shorturl.at/8oXaN" target="_blank" rel="noopener noreferrer" className="hover:text-viking-gold hover:scale-110 transition-all duration-300"><SiDevpost className="w-6 h-6" /></a>
+                        <a href="https://gdg.community.dev/gdg-on-campus-northern-kentucky-university/" target="_blank" rel="noopener noreferrer" className="hover:text-viking-gold hover:scale-110 transition-all duration-300"><SiGoogle className="w-6 h-6" /></a>
                     </div>
                 </div>
             </div>

@@ -68,7 +68,7 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
                             <motion.div
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="flex gap-4 mb-8"
+                                className="flex gap-2 md:gap-4 mb-8"
                             >
                                 <TimeBlock value={timeLeft.days} label="DAYS" />
                                 <TimeBlock value={timeLeft.hours} label="HRS" />
@@ -169,9 +169,9 @@ function ComingSoonModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => 
 }
 
 const TimeBlock = ({ value, label }: { value: number; label: string }) => (
-    <div className="flex flex-col items-center bg-viking-leather border-2 border-viking-gold p-2 md:p-3 min-w-[60px] md:min-w-[80px] shadow-[4px_4px_0px_0px_#000]">
-        <span className="text-2xl md:text-3xl font-heading text-white">{String(value).padStart(2, '0')}</span>
-        <span className="text-[8px] md:text-[10px] font-bold text-viking-gold tracking-widest">{label}</span>
+    <div className="flex flex-col items-center bg-viking-leather border-2 border-viking-gold p-1.5 md:p-3 min-w-[50px] md:min-w-[80px] shadow-[4px_4px_0px_0px_#000]">
+        <span className="text-xl md:text-3xl font-heading text-white">{String(value).padStart(2, '0')}</span>
+        <span className="text-[7px] md:text-[10px] font-bold text-viking-gold tracking-widest">{label}</span>
     </div>
 );
 

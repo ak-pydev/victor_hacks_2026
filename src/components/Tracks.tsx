@@ -7,8 +7,8 @@ import {
     IconHeart,
     IconRocket,
     IconSoup,
-    IconVolume,
 } from "@tabler/icons-react";
+import ElevenLabsLogo from "@/assets/sponsors/elevenlabs.svg";
 
 export function Tracks() {
     return (
@@ -82,7 +82,8 @@ export function Tracks() {
                             title: "Voice of the Gods",
                             label: "Best with ElevenLabs",
                             description: "Most innovative use of ElevenLabs' voice AI technology to bring applications to life.",
-                            icon: <IconVolume className="h-6 w-6" />,
+                            icon: undefined,
+                            backgroundImage: ElevenLabsLogo,
                             colSpan: 1,
                             className: "md:col-span-1"
                         }
