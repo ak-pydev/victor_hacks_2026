@@ -82,7 +82,7 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
                                 The Spoils of Victory
                             </h2>
 
-                            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-10 w-full px-4">
+                            <div className="grid grid-cols-1 md:flex md:flex-row items-center justify-center gap-4 mt-10 w-full px-4 max-w-4xl mx-auto">
                                 {!isRegistered && (
                                     <Button
                                         onClick={() => setIsLoginModalOpen(true)}

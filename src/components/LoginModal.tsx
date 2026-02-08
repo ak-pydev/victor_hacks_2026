@@ -61,19 +61,31 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                             </h2>
 
                             <p className="text-gray-300 font-sans leading-relaxed">
-                                Prove your worth, warrior. To join the raid and etch your name into the saga, you must reveal your identity.
+                                Join the ranks of Victor Hacks. Sign in to register, manage your team, and view exclusive saga details.
                             </p>
 
-                            <div className="w-full pt-4 space-y-4">
+                            <div className="w-full pt-4 space-y-3">
                                 <Button
                                     onClick={handleLogin}
-                                    className="w-full bg-viking-leather hover:bg-black text-white font-bold text-lg py-4 md:py-6 border-2 border-viking-gold shadow-[0_0_15px_rgba(251,191,36,0.2)] hover:shadow-[0_0_25px_rgba(251,191,36,0.4)] transition-all uppercase tracking-wider flex items-center justify-center gap-3 group"
+                                    className="w-full bg-viking-gold hover:bg-yellow-600 text-black font-bold text-lg py-6 border-none shadow-lg hover:shadow-xl transition-all uppercase tracking-wider flex items-center justify-center gap-3 group"
                                 >
-                                    <IconBrandGithub className="group-hover:text-viking-gold transition-colors" size={24} />
+                                    <IconBrandGithub className="text-black" size={24} />
                                     <span>Sign in with GitHub</span>
                                 </Button>
 
+                                <div className="relative flex py-2 items-center">
+                                    <div className="flex-grow border-t border-gray-600"></div>
+                                    <span className="flex-shrink-0 mx-4 text-gray-500 text-sm">OR</span>
+                                    <div className="flex-grow border-t border-gray-600"></div>
+                                </div>
 
+                                <Button
+                                    onClick={() => window.open("https://forms.gle/Hov5ENWDtUceqJp59", "_blank")}
+                                    variant="outline"
+                                    className="w-full bg-transparent text-gray-300 border border-gray-600 hover:border-viking-gold hover:text-viking-gold font-semibold text-lg py-6 uppercase tracking-wider flex items-center justify-center gap-3 transition-all"
+                                >
+                                    <span>Become a Mentor</span>
+                                </Button>
                             </div>
 
                             <p className="text-xs text-gray-500 italic mt-4">
