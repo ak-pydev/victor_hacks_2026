@@ -313,7 +313,7 @@ function Input({ label, type = "text", error, registration, placeholder, readOnl
                 {...registration}
                 placeholder={placeholder}
                 readOnly={readOnly}
-                className={`bg-viking-leather/40 border-2 ${error ? 'border-viking-crimson' : 'border-viking-maroon focus:border-viking-gold'} text-white p-4 rounded-none outline-none transition-all duration-300 placeholder:text-gray-600 focus:bg-viking-leather/60 focus:shadow-[0_0_10px_rgba(251,191,36,0.1)]`}
+                className={`w-full bg-viking-leather/40 border-2 ${error ? 'border-viking-crimson' : 'border-viking-maroon focus:border-viking-gold'} text-white p-4 rounded-none outline-none transition-all duration-300 placeholder:text-gray-600 focus:bg-viking-leather/60 focus:shadow-[0_0_10px_rgba(251,191,36,0.1)]`}
             />
             {error && <span className="text-viking-crimson text-xs font-bold tracking-wide">{error.message}</span>}
         </div>
