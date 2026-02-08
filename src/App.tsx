@@ -102,7 +102,11 @@ function App() {
         {/* User Profile - Top Right */}
         {session && isRegistered && userProfile && (
           <div className="fixed right-6 top-6 z-[60]">
-            <UserProfile profile={userProfile} onSignOut={() => supabase.auth.signOut()} />
+            <UserProfile
+              profile={userProfile}
+              avatarUrl={session.user?.user_metadata?.avatar_url}
+              onSignOut={() => supabase.auth.signOut()}
+            />
           </div>
         )}
       </main >
