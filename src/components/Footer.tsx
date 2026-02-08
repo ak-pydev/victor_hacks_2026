@@ -3,7 +3,7 @@ import { SiDevpost, SiGoogle } from "react-icons/si";
 import logo from "@/assets/logo.svg";
 import Galaxy from "./Galaxy";
 
-export function Footer() {
+export function Footer({ onOpenCodeOfConduct }: { onOpenCodeOfConduct?: () => void }) {
     return (
         <footer className="relative w-full bg-viking-charcoal text-white py-20 overflow-hidden font-sans" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%)' }}>
             {/* Background Galaxy Effect */}
@@ -32,7 +32,10 @@ export function Footer() {
 
                 {/* Bottom Section */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 text-gray-500 text-sm font-body">
-                    <p className="font-medium tracking-wide">© 2026 VictorHacks. All rights reserved.</p>
+                    <div className="flex flex-col md:flex-row items-center gap-4">
+                        <p className="font-medium tracking-wide">© 2026 VictorHacks. All rights reserved.</p>
+                        <button onClick={onOpenCodeOfConduct} className="hover:text-viking-gold transition-colors underline decoration-dotted">Code of Conduct</button>
+                    </div>
 
                     <p className="font-medium tracking-wide text-viking-gold/80">Made by Aaditya</p>
 

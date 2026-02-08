@@ -19,11 +19,14 @@ import { SmoothScrollLayout } from "@/components/SmoothScrollLayout";
 
 import { UserProfile } from "@/components/UserProfile";
 
+import { CodeOfConduct } from "@/components/CodeOfConduct";
+
 function App() {
   const [session, setSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [userProfile, setUserProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [view, setView] = useState<'home' | 'code-of-conduct'>('home');
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -85,6 +88,10 @@ function App() {
     );
   }
 
+  if (view === 'code-of-conduct') {
+    return <CodeOfConduct onBack={() => setView('home')} />;
+  }
+
   if (session && !isRegistered) {
     return (
       <SmoothScrollLayout>
@@ -112,7 +119,7 @@ function App() {
         <About />
         <Tracks />
         <FAQ />
-        <Footer />
+        <Footer onOpenCodeOfConduct={() => setView('code-of-conduct')} />
         <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50">
           <FloatingDock
             items={navItems}
