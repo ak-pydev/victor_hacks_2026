@@ -5,19 +5,5 @@
             "deno.window"
         ],
         "strict": true
-    },
-    "lint": {
-        "rules": {
-            "tags": [
-                "recommended"
-            ]
-        }
-    },
-    "fmt": {
-        "useTabs": false,
-        "lineWidth": 120,
-        "indentWidth": 2,
-        "singleQuote": true,
-        "proseWrap": "preserve"
     }
 }

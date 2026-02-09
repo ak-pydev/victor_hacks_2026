@@ -6,90 +6,99 @@ const corsHeaders = {
 };
 
 Deno.serve(async (req) => {
-    // 1. Handle CORS preflight
     if (req.method === "OPTIONS") {
         return new Response("ok", { headers: corsHeaders });
     }
 
     try {
         const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-        if (!RESEND_API_KEY) {
-            throw new Error("RESEND_API_KEY is not set in Supabase Secrets");
-        }
+        if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY not set");
 
-        // Initialize the Resend messenger inside the handler
         const resend = new Resend(RESEND_API_KEY);
-
-        // 2. Parse the payload and guard against missing "record"
         const payload = await req.json();
-        
-        // Supabase webhooks send data in the "record" object
         const record = payload?.record;
-        if (!record) {
-            throw new Error("No record found. Are you sure this is a Supabase Webhook?");
-        }
-
+        
+        if (!record) throw new Error("No record found in Supabase Webhook payload.");
         const { email, first_name } = record;
 
-        if (!email) {
-            throw new Error("No email found in the database record");
-        }
-
-        console.log(`Sending welcome bird to: ${email}`);
-
-        // 3. Send the message
         const { data, error } = await resend.emails.send({
-            from: "Victor Hacks Team <team@send.victorhacks.com>", // Verified domain check
+            from: "Victor Hacks Team <team@send.victorhacks.com>",
             to: [email],
             subject: `Welcome to the War-Band, ${first_name || 'Hacker'}! 🛡️`,
             html: `
-        <div style="font-family: sans-serif; background-color: #0d0d0d; color: #e5e5e5; margin: 0; padding: 20px;">
-            <div style="max-width: 600px; margin: 0 auto; background-color: #1a1a1a; border: 2px solid #fbbf24; border-radius: 8px; overflow: hidden;">
-                <div style="text-align: center; background-color: #1a1a1a;">
-                    <img src="https://lmklpxjnzhxnlusoxzhl.supabase.co/storage/v1/object/public/images/banner.png" alt="Victor Hacks" style="width: 100%; height: auto; display: block;">
-                </div>
-                <div style="padding: 30px; line-height: 1.6;">
-                    <h2 style="color: #fbbf24; margin-top: 0;">Hail, ${first_name || 'Hacker'}!</h2>
-                    
-                    <p>You have successfully joined the ranks for <strong>Victor Hacks</strong>. Your journey to the North has begun! We are excited to have you in our Shield Wall.</p>
+        <!DOCTYPE html>
+        <html>
+        <body style="margin: 0; padding: 0; background-color: #050505; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#050505">
+                <tr>
+                    <td align="center" style="padding: 40px 0;">
+                        <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: #0f0f0f; border: 1px solid #222; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                            
+                            <tr>
+                                <td>
+                                    <img src="https://lmklpxjnzhxnlusoxzhl.supabase.co/storage/v1/object/public/images/banner.png" alt="Victor Hacks Banner" width="600" style="display: block; width: 100%; height: auto;">
+                                </td>
+                            </tr>
 
-                    <div style="text-align: center; margin: 30px 0;">
-                        <img src="https://lmklpxjnzhxnlusoxzhl.supabase.co/storage/v1/object/public/images/logo_victor_hack.jpeg" alt="Logo" style="width: 120px; height: auto; border-radius: 50%; border: 3px solid #fbbf24;">
-                    </div>
+                            <tr>
+                                <td style="padding: 40px; text-align: left;">
+                                    <h1 style="color: #fbbf24; font-size: 28px; font-weight: 800; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px;">
+                                        Hail, ${first_name || 'Hacker'}!
+                                    </h1>
+                                    
+                                    <p style="color: #a3a3a3; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+                                        You have successfully joined the ranks for <strong style="color: #ffffff;">Victor Hacks</strong>. Your journey to the North has begun! We are excited to have you in our Shield Wall.
+                                    </p>
 
-                    <h3 style="color: #fbbf24; text-transform: uppercase;">Your Next Steps:</h3>
+                                    <div style="height: 1px; background-color: #222; margin-bottom: 30px;"></div>
 
-                    <p style="margin-bottom: 20px;">
-                        <strong style="color: #fbbf24;">⚔️ Join the Mead Hall (Discord):</strong><br>
-                        <a href="https://discord.com/invite/Q6URhaSz55" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background-color: #fbbf24; color: #000; text-decoration: none; font-weight: bold; border-radius: 4px;">JOIN DISCORD</a>
-                    </p>
+                                    <h3 style="color: #ffffff; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">The Next Raid Steps:</h3>
 
-                    <p>
-                        <strong style="color: #fbbf24;">📜 Register your Project (Devpost):</strong><br>
-                        <a href="https://shorturl.at/8oXaN" style="display: inline-block; margin-top: 10px; padding: 10px 20px; border: 1px solid #fbbf24; color: #fbbf24; text-decoration: none; font-weight: bold; border-radius: 4px;">REGISTER ON DEVPOST</a>
-                    </p>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td style="padding-bottom: 25px;">
+                                                <div style="color: #fbbf24; font-weight: bold; font-size: 14px; margin-bottom: 8px;">⚔️ JOIN THE MEAD HALL</div>
+                                                <a href="https://discord.com/invite/Q6URhaSz55" style="display: inline-block; background-color: #fbbf24; color: #000000; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">ENTER DISCORD</a>
+                                                <div style="color: #525252; font-size: 12px; margin-top: 5px;">Plan your raids and share code here.</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-bottom: 10px;">
+                                                <div style="color: #fbbf24; font-weight: bold; font-size: 14px; margin-bottom: 8px;">📜 CARVE YOUR RUNES</div>
+                                                <a href="https://shorturl.at/8oXaN" style="display: inline-block; background-color: transparent; color: #fbbf24; border: 1px solid #fbbf24; padding: 11px 23px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">REGISTER ON DEVPOST</a>
+                                                <div style="color: #525252; font-size: 12px; margin-top: 5px;">Ensure your name is in the runestones.</div>
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                    <p style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">Get your keyboard ready. The voyage begins soon!<br><strong>— The Victor Hacks Jarls</strong></p>
-                </div>
-            </div>
-        </div>
+                                    <p style="color: #666; font-size: 14px; margin-top: 40px; font-style: italic; border-left: 2px solid #fbbf24; padding-left: 15px;">
+                                        "A traveler should be wise, for anything is easy at home." <br>
+                                        <span style="color: #fbbf24; font-style: normal; font-weight: bold;">— The Victor Hacks Jarls</span>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td align="center" style="background-color: #0a0a0a; padding: 20px; border-top: 1px solid #1a1a1a;">
+                                    <p style="color: #444; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin: 0;">
+                                        Northern Kentucky University • Data Science Club • GDG
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>
         `,
         });
 
-        if (error) {
-            throw error;
-        }
-
-        return new Response(JSON.stringify(data), {
-            status: 200,
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+        if (error) throw error;
+        return new Response(JSON.stringify(data), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
     } catch (error) {
         console.error("The voyage failed:", error.message);
-        return new Response(JSON.stringify({ error: error.message }), {
-            status: 500,
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 });
