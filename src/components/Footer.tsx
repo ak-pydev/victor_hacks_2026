@@ -5,7 +5,7 @@ import Galaxy from "./Galaxy";
 
 export function Footer({ onOpenCodeOfConduct }: { onOpenCodeOfConduct?: () => void }) {
     return (
-        <footer className="relative w-full bg-viking-charcoal text-white py-20 overflow-hidden font-sans" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 15%)' }}>
+        <footer className="relative w-full bg-viking-charcoal text-white py-12 overflow-hidden font-sans" style={{ marginBottom: 0 }}>
             {/* Background Galaxy Effect */}
             <div className="absolute inset-0 z-0 opacity-30 pointer-events-none mix-blend-screen">
                 <Galaxy
