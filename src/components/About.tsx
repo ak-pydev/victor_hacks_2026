@@ -8,6 +8,9 @@ export function About() {
                         src="https://lmklpxjnzhxnlusoxzhl.supabase.co/storage/v1/object/public/images/banner.png"
                         alt="Victor Hacks Banner"
                         className="w-full h-auto"
+                        loading="lazy"
+                        decoding="async"
+                        style={{ transform: 'none' }}
                     />
                 </div>
 
