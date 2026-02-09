@@ -88,14 +88,14 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
                                         onClick={() => setIsLoginModalOpen(true)}
                                         className="bg-viking-crimson hover:bg-red-800 text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto"
                                     >
-                                        Join the Raid
+                                        REGISTER
                                     </Button>
                                 )}
                                 <Button
                                     onClick={() => window.open("https://forms.gle/RCDWXfjBj6CB4WUt6", "_blank")}
                                     className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto"
                                 >
-                                    Become an Ally
+                                    BECOME A SPONSOR
                                 </Button>
                                 <Button
                                     onClick={() => window.open("https://forms.gle/Hov5ENWDtUceqJp59", "_blank")}
