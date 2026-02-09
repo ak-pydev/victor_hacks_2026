@@ -139,22 +139,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
 
             if (error) throw error;
 
-            // Send Confirmation Email
-            try {
-                const { error: emailError } = await supabase.functions.invoke('send-registration-email', {
-                    body: {
-                        email: data.email,
-                        first_name: data.first_name,
-                    },
-                });
 
-                if (emailError) {
-                    console.error("Error sending email:", emailError);
-                    // We don't block the user flow if email fails, but we log it.
-                }
-            } catch (err) {
-                console.error("Failed to invoke email function:", err);
-            }
 
             setSubmitSuccess(true);
 
