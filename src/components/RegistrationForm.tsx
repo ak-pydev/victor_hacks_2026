@@ -17,6 +17,13 @@ const formSchema = z.object({
     level_of_study: z.string().min(1, "Level of study is required"),
     country_of_residence: z.string().min(1, "Country is required"),
     linkedin_url: z.string().url("Invalid LinkedIn URL").min(1, "LinkedIn URL is required"),
+    resume: z.any()
+        .refine((files) => files?.length === 1, "Resume is required.")
+        .refine((files) => files?.[0]?.size <= 2000000, `Max file size is 2MB.`)
+        .refine(
+            (files) => ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(files?.[0]?.type),
+            "Only .pdf, .doc, and .docx formats are supported."
+        ),
 
     // Demographics
     dietary_restrictions: z.string().optional(),
@@ -52,7 +59,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
 
     const steps = [
         { id: 'identity', title: 'Identity', fields: ['first_name', 'last_name', 'age', 'phone', 'email'] },
-        { id: 'origin', title: 'Origin', fields: ['school', 'level_of_study', 'country_of_residence', 'major', 'linkedin_url'] },
+        { id: 'origin', title: 'Origin', fields: ['school', 'level_of_study', 'country_of_residence', 'major', 'linkedin_url', 'resume'] },
         { id: 'demographics', title: 'Demographics', fields: ['gender', 'pronouns', 'race_ethnicity', 'sexual_orientation', 'underrepresented_group'] },
         { id: 'logistics', title: 'Logistics', fields: ['tshirt_size', 'dietary_restrictions', 'shipping_address_line1', 'shipping_address_line2', 'shipping_city', 'shipping_state', 'shipping_country', 'shipping_pincode'] },
         { id: 'compliance', title: 'Agreements', fields: ['gdg_code_of_conduct', 'victor_hacks_rules', 'mlh_code_of_conduct'] }
@@ -65,6 +72,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
+        mode: 'onBlur',
         defaultValues: {
             email: session?.user?.email || "",
         }
@@ -93,17 +101,61 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
         setSubmitError(null);
 
         try {
+            let resume_url = null;
+
+            // Upload Resume if exists
+            if (data.resume && data.resume.length > 0) {
+                const file = data.resume[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${session.user.id}_${Math.random()}.${fileExt}`;
+                const filePath = `${fileName}`;
+
+                const { error: uploadError } = await supabase.storage
+                    .from('resumes')
+                    .upload(filePath, file);
+
+                if (uploadError) throw uploadError;
+
+                const { data: publicUrlData } = supabase.storage
+                    .from('resumes')
+                    .getPublicUrl(filePath);
+
+                resume_url = publicUrlData.publicUrl;
+            }
+
+            // Prepare profile data (exclude resume file object)
+            const { resume, ...profileData } = data;
+
             const { error } = await supabase
                 .from('profiles')
                 .insert([
                     {
                         id: session.user.id,
-                        ...data,
+                        ...profileData,
+                        resume_url: resume_url,
                         updated_at: new Date(),
                     },
                 ]);
 
             if (error) throw error;
+
+            // Send Confirmation Email
+            try {
+                const { error: emailError } = await supabase.functions.invoke('send-registration-email', {
+                    body: {
+                        email: data.email,
+                        first_name: data.first_name,
+                    },
+                });
+
+                if (emailError) {
+                    console.error("Error sending email:", emailError);
+                    // We don't block the user flow if email fails, but we log it.
+                }
+            } catch (err) {
+                console.error("Failed to invoke email function:", err);
+            }
+
             setSubmitSuccess(true);
 
             // Redirect after 2 seconds
@@ -189,7 +241,10 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
                                         "Computer science/engineering", "Another engineering discipline", "Information systems/IT", "Natural science", "Math/Statistics", "Web dev/design", "Business", "Humanities", "Social science", "Fine arts", "Health science", "Other", "Undecided", "Prefer not to answer"
                                     ]} />
                                 </div>
-                                <Input label="LinkedIn URL" type="url" error={errors.linkedin_url} registration={register("linkedin_url")} />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <Input label="LinkedIn URL" type="url" error={errors.linkedin_url} registration={register("linkedin_url")} />
+                                    <FileInput label="Resume (PDF/DOC, Max 2MB)" error={errors.resume} registration={register("resume")} />
+                                </div>
                             </Section>
                         </motion.div>
                     )}
@@ -351,6 +406,21 @@ function Checkbox({ label, error, registration }: any) {
                 <label className="text-sm text-gray-300 leading-relaxed max-w-prose">{label}</label>
                 {error && <span className="text-viking-crimson text-xs font-bold tracking-wide">{error.message}</span>}
             </div>
+        </div>
+    )
+}
+
+function FileInput({ label, error, registration }: any) {
+    return (
+        <div className="flex flex-col gap-2 group">
+            <label className="text-sm font-bold text-viking-gold uppercase tracking-widest transition-colors group-focus-within:text-white">{label} {error && <span className="text-viking-crimson">*</span>}</label>
+            <input
+                type="file"
+                accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                {...registration}
+                className={`w-full bg-viking-leather/40 border-2 ${error ? 'border-viking-crimson' : 'border-viking-maroon focus:border-viking-gold'} text-white p-3 md:p-4 rounded-none outline-none transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-none file:border-0 file:text-sm file:font-semibold file:bg-viking-gold file:text-black hover:file:bg-yellow-600`}
+            />
+            {error && <span className="text-viking-crimson text-xs font-bold tracking-wide">{error.message}</span>}
         </div>
     )
 }
