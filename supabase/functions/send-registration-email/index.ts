@@ -63,8 +63,8 @@ Deno.serve(async (req) => {
         </head>
         <body>
             <div class="container">
-                <div class="header">
-                    <h1>Victor Hacks 2026</h1>
+                <div class="header" style="padding: 0;">
+                    <img src="https://lmklpxjnzhxnlusoxzhl.supabase.co/storage/v1/object/public/images/banner.png" alt="Victor Hacks 2026 Banner" style="width: 100%; height: auto; display: block;">
                 </div>
                 <div class="content">
                     <div class="greeting">Hail, Hacker!</div>
@@ -72,8 +72,7 @@ Deno.serve(async (req) => {
                     <p>You have successfully joined the ranks for Victor Hacks. Your journey to the North has begun! We are excited to have you in our Shield Wall.</p>
 
                     <div style="text-align: center; margin: 30px 0;">
-                        <!-- Placeholder for logo if needed inline, though header is usually enough -->
-                        <span style="font-size: 64px;">🛡️</span>
+                        <img src="https://lmklpxjnzhxnlusoxzhl.supabase.co/storage/v1/object/public/images/logo_victor_hack.jpeg" alt="Victor Hacks Logo" style="width: 120px; height: auto; border-radius: 50%; border: 3px solid #fbbf24;">
                     </div>
 
                     <h3 style="color: #fbbf24; text-transform: uppercase; margin-top: 30px;">Your Next Steps:</h3>
