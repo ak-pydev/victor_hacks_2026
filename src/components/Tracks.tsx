@@ -25,7 +25,7 @@ export function Tracks() {
 
             <div className="relative z-10 max-w-7xl mx-auto w-full py-20 px-4 md:px-10">
                 <h2 className="text-4xl md:text-6xl font-bold font-heading text-center mb-16 text-viking-gold drop-shadow-[0_0_15px_rgba(255,165,0,0.5)]">
-                    Pick Your Path
+                    Choose your Track
                 </h2>
 
                 <MagicBento

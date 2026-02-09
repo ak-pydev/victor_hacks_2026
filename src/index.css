@@ -91,4 +91,67 @@
   .lenis.lenis-scrolling iframe {
     pointer-events: none;
   }
+
+  /* Performance Optimizations for Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    /* Enable GPU acceleration for all elements */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+    /* Optimize rendering */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    /* Prevent flickering */
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+
+  /* Optimize animations and transitions */
+  *[class*="animate"],
+  *[class*="transition"] {
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Optimize images and media */
+  img,
+  video,
+  canvas {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  /* Optimize fixed and sticky elements */
+  *[class*="fixed"],
+  *[class*="sticky"] {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Smooth scrolling for anchor links */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
