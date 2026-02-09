@@ -1,36 +1,45 @@
 import { Resend } from "npm:resend";
 
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-
-const resend = new Resend(RESEND_API_KEY);
-
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 Deno.serve(async (req) => {
-    // Handle CORS
+    // 1. Handle CORS preflight
     if (req.method === "OPTIONS") {
         return new Response("ok", { headers: corsHeaders });
     }
 
     try {
-        // IMPORTANT: Supabase Webhooks wrap the data in a "record" object
-        const payload = await req.json();
-        const { email, first_name } = payload.record;
-
-        if (!email) {
-            throw new Error("No email found in the webhook record");
-        }
-
+        const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
         if (!RESEND_API_KEY) {
             throw new Error("RESEND_API_KEY is not set in Supabase Secrets");
         }
 
-        const data = await resend.emails.send({
-            // Ensure this matches your VERIFIED domain in Resend (e.g., send.victorhacks.com)
-            from: "Victor Hacks Team <team@send.victorhacks.com>",
+        // Initialize the Resend messenger inside the handler
+        const resend = new Resend(RESEND_API_KEY);
+
+        // 2. Parse the payload and guard against missing "record"
+        const payload = await req.json();
+        
+        // Supabase webhooks send data in the "record" object
+        const record = payload?.record;
+        if (!record) {
+            throw new Error("No record found. Are you sure this is a Supabase Webhook?");
+        }
+
+        const { email, first_name } = record;
+
+        if (!email) {
+            throw new Error("No email found in the database record");
+        }
+
+        console.log(`Sending welcome bird to: ${email}`);
+
+        // 3. Send the message
+        const { data, error } = await resend.emails.send({
+            from: "Victor Hacks Team <team@send.victorhacks.com>", // Verified domain check
             to: [email],
             subject: `Welcome to the War-Band, ${first_name || 'Hacker'}! 🛡️`,
             html: `
@@ -67,12 +76,17 @@ Deno.serve(async (req) => {
         `,
         });
 
+        if (error) {
+            throw error;
+        }
+
         return new Response(JSON.stringify(data), {
             status: 200,
             headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
 
     } catch (error) {
+        console.error("The voyage failed:", error.message);
         return new Response(JSON.stringify({ error: error.message }), {
             status: 500,
             headers: { ...corsHeaders, "Content-Type": "application/json" },
