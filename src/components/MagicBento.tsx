@@ -334,6 +334,10 @@ const GlobalSpotlight: React.FC<{
     const isInsideSection = useRef(false);
 
     useEffect(() => {
+      // Temporarily disable spotlight to fix footer whitespace issue
+      // The spotlight causes scroll height issues due to Lenis transform on body
+      return;
+
       if (disableAnimations || !gridRef?.current || !enabled) return;
 
       const spotlight = document.createElement('div');
@@ -356,6 +360,8 @@ const GlobalSpotlight: React.FC<{
       opacity: 0;
       transform: translate(-50%, -50%);
       mix-blend-mode: screen;
+      contain: layout style paint;
+      will-change: transform, opacity;
     `;
       document.body.appendChild(spotlight);
       spotlightRef.current = spotlight;
