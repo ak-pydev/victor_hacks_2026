@@ -1,6 +1,8 @@
-
+import { Resend } from "npm:resend";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+
+const resend = new Resend(RESEND_API_KEY);
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -26,18 +28,12 @@ Deno.serve(async (req) => {
             throw new Error("RESEND_API_KEY is not set in Supabase Secrets");
         }
 
-        const res = await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${RESEND_API_KEY}`,
-            },
-            body: JSON.stringify({
-                // Ensure this matches your VERIFIED domain in Resend (e.g., send.victorhacks.com)
-                from: "Victor Hacks Team <team@send.victorhacks.com>",
-                to: [email],
-                subject: `Welcome to the War-Band, ${first_name || 'Hacker'}! 🛡️`,
-                html: `
+        const data = await resend.emails.send({
+            // Ensure this matches your VERIFIED domain in Resend (e.g., send.victorhacks.com)
+            from: "Victor Hacks Team <team@send.victorhacks.com>",
+            to: [email],
+            subject: `Welcome to the War-Band, ${first_name || 'Hacker'}! 🛡️`,
+            html: `
         <div style="font-family: sans-serif; background-color: #0d0d0d; color: #e5e5e5; margin: 0; padding: 20px;">
             <div style="max-width: 600px; margin: 0 auto; background-color: #1a1a1a; border: 2px solid #fbbf24; border-radius: 8px; overflow: hidden;">
                 <div style="text-align: center; background-color: #1a1a1a;">
@@ -69,10 +65,7 @@ Deno.serve(async (req) => {
             </div>
         </div>
         `,
-            }),
         });
-
-        const data = await res.json();
 
         return new Response(JSON.stringify(data), {
             status: 200,
