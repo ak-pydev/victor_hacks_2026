@@ -18,7 +18,7 @@ const formSchema = z.object({
     country_of_residence: z.string().min(1, "Country is required"),
     linkedin_url: z.string().url("Invalid LinkedIn URL").min(1, "LinkedIn URL is required"),
     resume: z.any()
-        .refine((files) => files?.length === 1, "Resume is required.")
+        .refine((files) => files?.length === 1, "Resume upload is required.")
         .refine((files) => files?.[0]?.size <= 2000000, `Max file size is 2MB.`)
         .refine(
             (files) => ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(files?.[0]?.type),
