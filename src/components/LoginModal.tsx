@@ -62,6 +62,8 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
                             <p className="text-gray-300 font-sans leading-relaxed">
                                 Join the ranks of Victor Hacks. Sign in to register, manage your team, and view exclusive saga details.
+                                <br /><br />
+                                <span className="text-viking-gold italic">The full event schedule will be released closer to the event date.</span>
                             </p>
 
                             <div className="w-full pt-4 space-y-3">
