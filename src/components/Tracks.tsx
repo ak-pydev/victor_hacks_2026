@@ -5,10 +5,10 @@ import {
     IconChartBar,
     IconCurrencyDollar,
     IconHeart,
-    IconRocket,
     IconSoup,
 } from "@tabler/icons-react";
-import ElevenLabsLogo from "@/assets/sponsors/elevenlabs.svg";
+import ElevenLabsLogo from "@/assets/sponsors/elevenlabs.svg?url";
+import FeatherlessLogo from "@/assets/sponsors/featherless-full-dark.svg?url";
 
 export function Tracks() {
     return (
@@ -35,8 +35,8 @@ export function Tracks() {
                             label: "Most Technically Impressive",
                             description: "Celebrates the most complex \"Seidr\" (magic) implementations, deep neural networks, or raw engineering power.",
                             icon: <IconBrain className="h-6 w-6" />,
-                            colSpan: 2,
-                            className: "md:col-span-2"
+                            colSpan: 1,
+                            className: "md:col-span-1"
                         },
                         {
                             title: "The Merchant’s Voyage",
@@ -55,10 +55,15 @@ export function Tracks() {
                             className: "md:col-span-1"
                         },
                         {
-                            title: "The Bifröst Bridge",
+                            title: "The Bifröst Bridge (Featherless.ai)",
                             label: "Generative AI & LLMs",
-                            description: "New Track. Focuses on using Gen AI to bridge the gap between human intent and machine execution—think AI agents, fine-tuned models.",
-                            icon: <IconRocket className="h-6 w-6" />,
+                            description: "Content: Conference access for all participants for one month.\n\nPrize Sponsorship:\n1st Prize: Featherless Scale Plan worth $300\n2nd Prize: Featherless Scale Plan worth $150\n3rd Prize: Featherless Scale Plan worth $75",
+                            icon: undefined,
+                            logo: (
+                                <img src={FeatherlessLogo} alt="Featherless Logo" className="w-72 mx-auto mb-4 object-contain opacity-90" />
+                            ),
+                            textAutoHide: false,
+                            descriptionClassName: "text-base",
                             colSpan: 2,
                             className: "md:col-span-2"
                         },
@@ -81,14 +86,19 @@ export function Tracks() {
                         {
                             title: "Voice of the Gods",
                             label: "Best with ElevenLabs",
-                            description: "Most innovative use of ElevenLabs' voice AI technology to bring applications to life.",
+                            description: "For all attendees:\n• 1 month free of our Creator tier (normally $22/month)\n\nFor the overall winning team:\n• Each member receives 3 months of our Pro tier ($99/month)\n\nFor the \"Best Project Built with ElevenLabs\":\n• Each team member receives 6 months of our Scale tier ($330/month)",
                             icon: undefined,
-                            backgroundImage: ElevenLabsLogo,
-                            colSpan: 1,
-                            className: "md:col-span-1"
+                            logo: (
+                                <img src={ElevenLabsLogo} alt="ElevenLabs Logo" className="w-72 mx-auto mb-4 object-contain opacity-90" />
+                            ),
+                            textAutoHide: false,
+                            descriptionClassName: "text-sm",
+                            colSpan: 2,
+                            className: "md:col-span-2 elevenlabs-card"
                         }
                     ]}
                 />
+
             </div>
         </section>
     );

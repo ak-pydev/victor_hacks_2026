@@ -9,11 +9,16 @@ export interface BentoCardProps {
   textAutoHide?: boolean;
   disableAnimations?: boolean;
   icon?: React.ReactNode;
+  logo?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
   colSpan?: number;
   rowSpan?: number;
   backgroundImage?: string;
+  backgroundSize?: string;
+  backgroundPosition?: string;
+  backgroundRepeat?: string;
+  descriptionClassName?: string;
 }
 
 export interface BentoProps {
@@ -619,6 +624,26 @@ const MagicBento: React.FC<BentoProps> = ({
               min-height: 180px;
             }
           }
+
+          .logo-fade {
+             background-blend-mode: soft-light;
+             background-color: rgba(6, 0, 16, 0.85) !important;
+          }
+
+          .elevenlabs-card {
+             background-color: #f5f5dc !important; /* Beige background */
+             color: black !important; /* Black text */
+             background-blend-mode: multiply; /* Make white from SVG transparent */
+          }
+          .elevenlabs-card .card__header,
+          .elevenlabs-card .card__content,
+          .elevenlabs-card .card__title,
+          .elevenlabs-card .card__description {
+             color: black !important;
+          }
+          .elevenlabs-card::after {
+             display: none; /* remove glow border if any */
+          }
         `}
       </style>
 
@@ -647,8 +672,9 @@ const MagicBento: React.FC<BentoProps> = ({
               '--glow-intensity': '0',
               '--glow-radius': '200px',
               backgroundImage: card.backgroundImage ? `url(${card.backgroundImage})` : undefined,
-              backgroundSize: card.backgroundImage ? 'cover' : undefined,
-              backgroundPosition: card.backgroundImage ? 'center' : undefined,
+              backgroundSize: card.backgroundSize || (card.backgroundImage ? 'cover' : undefined),
+              backgroundPosition: card.backgroundPosition || (card.backgroundImage ? 'center' : undefined),
+              backgroundRepeat: card.backgroundImage ? 'no-repeat' : undefined,
               gridColumn: !isMobile && card.colSpan ? `span ${card.colSpan}` : undefined,
               gridRow: !isMobile && card.rowSpan ? `span ${card.rowSpan}` : undefined
             } as React.CSSProperties;
@@ -670,12 +696,17 @@ const MagicBento: React.FC<BentoProps> = ({
                     <span className="card__label text-base">{card.label}</span>
                     {card.icon && <div className="card__icon text-neutral-400">{card.icon}</div>}
                   </div>
-                  <div className="card__content flex flex-col relative text-white">
-                    <h3 className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? 'text-clamp-1' : ''}`}>
+                  <div className="card__content flex flex-col relative text-white flex-grow">
+                    {card.logo && (
+                      <div className="flex-grow flex items-center justify-center -mt-4 mb-4">
+                        {card.logo}
+                      </div>
+                    )}
+                    <h3 className={`card__title font-normal text-base m-0 mb-1 ${card.textAutoHide ?? textAutoHide ? 'text-clamp-1' : ''}`}>
                       {card.title}
                     </h3>
                     <p
-                      className={`card__description text-xs leading-5 opacity-90 ${textAutoHide ? 'text-clamp-2' : ''}`}
+                      className={`card__description ${card.descriptionClassName || 'text-xs'} leading-5 opacity-90 ${card.textAutoHide ?? textAutoHide ? 'text-clamp-2' : 'whitespace-pre-line'}`}
                     >
                       {card.description}
                     </p>
@@ -812,12 +843,17 @@ const MagicBento: React.FC<BentoProps> = ({
                   <span className="card__label text-base">{card.label}</span>
                   {card.icon && <div className="card__icon text-neutral-400">{card.icon}</div>}
                 </div>
-                <div className="card__content flex flex-col relative text-white">
-                  <h3 className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? 'text-clamp-1' : ''}`}>
+                <div className="card__content flex flex-col relative text-white flex-grow">
+                  {card.logo && (
+                    <div className="flex-grow flex items-center justify-center -mt-4 mb-4">
+                      {card.logo}
+                    </div>
+                  )}
+                  <h3 className={`card__title font-normal text-base m-0 mb-1 ${card.textAutoHide ?? textAutoHide ? 'text-clamp-1' : ''}`}>
                     {card.title}
                   </h3>
                   <p
-                    className={`card__description text-xs leading-5 opacity-90 ${textAutoHide ? 'text-clamp-2' : ''}`}
+                    className={`card__description ${card.descriptionClassName || 'text-xs'} leading-5 opacity-90 ${card.textAutoHide ?? textAutoHide ? 'text-clamp-2' : 'whitespace-pre-line'}`}
                   >
                     {card.description}
                   </p>

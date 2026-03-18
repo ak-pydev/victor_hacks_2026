@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero_image.jpg";
 import { Button } from "@/components/ui/button";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { motion, useScroll, useTransform, useMotionTemplate, AnimatePresence } from "motion/react";
+import { motion, useScroll, useTransform, useMotionTemplate } from "motion/react";
 import { LoginModal } from "@/components/LoginModal";
 
-const TARGET_DATE = new Date("2026-04-12T00:00:00");
+const TARGET_DATE = new Date("2026-04-19T00:00:00");
 
 interface TimeLeft {
     days: number;
@@ -31,10 +31,9 @@ const calculateTimeLeft = (): TimeLeft => {
     return timeLeft;
 };
 
-export function Hero({ session, isRegistered }: { session: any, isRegistered: boolean }) {
+export function Hero({ isRegistered, onViewSagaDetails }: { isRegistered: boolean; onViewSagaDetails?: () => void }) {
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-    const [isComingSoonOpen, setIsComingSoonOpen] = useState(false);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -43,22 +42,10 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
         return () => clearInterval(timer);
     }, []);
 
-    const handleSagaDetails = () => {
-        if (!session) {
-            setIsLoginModalOpen(true);
-        } else if (isRegistered) {
-            setIsComingSoonOpen(true);
-        } else {
-            // Should theoretically be handled by App.tsx redirection, but safe fallback
-            window.location.reload();
-        }
-    }
-
     return (
         <section className="relative flex flex-col items-center justify-center min-h-screen bg-transparent overflow-hidden font-sans">
             {/* Background removed for ParallaxWrapper */}
             <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
-            <ComingSoonModal isOpen={isComingSoonOpen} onClose={() => setIsComingSoonOpen(false)} />
 
             <div className="relative z-10 w-full">
                 <ContainerScroll
@@ -82,33 +69,32 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
                                 The Spoils of Victory
                             </h2>
 
-                            <div className="grid grid-cols-1 md:flex md:flex-row items-center justify-center gap-4 mt-10 w-full px-4 max-w-4xl mx-auto">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mt-8 w-full px-4 max-w-5xl mx-auto flex-wrap sm:flex-nowrap whitespace-nowrap overflow-x-auto pb-4 custom-scrollbar">
                                 {!isRegistered && (
                                     <Button
                                         onClick={() => setIsLoginModalOpen(true)}
-                                        className="bg-viking-crimson hover:bg-red-800 text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto"
+                                        className="bg-viking-crimson hover:bg-red-800 text-white font-bold text-sm md:text-base px-6 md:px-8 py-4 md:py-5 rounded-none border-2 border-viking-gold shadow-[3px_3px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full sm:w-auto"
                                     >
                                         REGISTER
                                     </Button>
                                 )}
                                 <Button
+                                    onClick={onViewSagaDetails}
+                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-sm md:text-base px-6 md:px-8 py-4 md:py-5 rounded-none border-2 border-viking-gold shadow-[3px_3px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full sm:w-auto"
+                                >
+                                    EVENT DETAILS
+                                </Button>
+                                <Button
                                     onClick={() => window.open("https://forms.gle/RCDWXfjBj6CB4WUt6", "_blank")}
-                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto"
+                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-sm md:text-base px-6 md:px-8 py-4 md:py-5 rounded-none border-2 border-viking-gold shadow-[3px_3px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full sm:w-auto"
                                 >
                                     BECOME A SPONSOR
                                 </Button>
                                 <Button
                                     onClick={() => window.open("https://forms.gle/Hov5ENWDtUceqJp59", "_blank")}
-                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-lg px-8 py-6 rounded-none border-2 border-viking-gold shadow-[4px_4px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full md:w-auto"
+                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-sm md:text-base px-6 md:px-8 py-4 md:py-5 rounded-none border-2 border-viking-gold shadow-[3px_3px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full sm:w-auto"
                                 >
                                     Become a Mentor
-                                </Button>
-                                <Button
-                                    onClick={handleSagaDetails}
-                                    variant="outline"
-                                    className="bg-transparent text-viking-gold border-2 border-viking-gold hover:bg-viking-gold/10 font-bold text-lg px-8 py-6 rounded-none uppercase tracking-widest w-full md:w-auto"
-                                >
-                                    {session && isRegistered ? "Enter Saga" : "Saga Details"}
                                 </Button>
                             </div>
                         </div>
@@ -127,46 +113,7 @@ export function Hero({ session, isRegistered }: { session: any, isRegistered: bo
     );
 }
 
-function ComingSoonModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
-    return (
-        <AnimatePresence>
-            {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={onClose}
-                        className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
-                    />
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-md bg-viking-charcoal border-2 border-viking-gold shadow-[0_0_50px_rgba(251,191,36,0.3)] p-8 text-center"
-                    >
-                        {/* Decorative Corner Borders */}
-                        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-viking-gold z-10"></div>
-                        <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-viking-gold z-10"></div>
-                        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-viking-gold z-10"></div>
-                        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-viking-gold z-10"></div>
 
-                        <h3 className="text-3xl font-heading text-viking-gold uppercase mb-4 drop-shadow-sm">Prepare Yourself</h3>
-                        <p className="text-white text-lg font-sans mb-6 leading-relaxed">
-                            The battle is on the way! Sharpen your axes and ready your mind. The saga will begin shortly.
-                        </p>
-                        <Button
-                            onClick={onClose}
-                            className="bg-viking-crimson hover:bg-red-800 text-white font-bold uppercase tracking-widest border border-viking-gold"
-                        >
-                            Acknowledge
-                        </Button>
-                    </motion.div>
-                </div>
-            )}
-        </AnimatePresence>
-    );
-}
 
 const TimeBlock = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center bg-viking-leather border-2 border-viking-gold p-1.5 md:p-3 min-w-[50px] md:min-w-[80px] shadow-[4px_4px_0px_0px_#000]">

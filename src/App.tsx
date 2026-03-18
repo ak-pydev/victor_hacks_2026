@@ -21,13 +21,14 @@ import mlhBadge from "@/assets/mlh.png";
 import { UserProfile } from "@/components/UserProfile";
 
 import { CodeOfConduct } from "@/components/CodeOfConduct";
+import { SagaDetails } from "@/components/SagaDetails";
 
 function App() {
   const [session, setSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [userProfile, setUserProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [view, setView] = useState<'home' | 'code-of-conduct'>('home');
+  const [view, setView] = useState<'home' | 'code-of-conduct' | 'saga-details'>('home');
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -93,6 +94,10 @@ function App() {
     return <CodeOfConduct onBack={() => setView('home')} />;
   }
 
+  if (view === 'saga-details') {
+    return <SagaDetails onBack={() => setView('home')} />;
+  }
+
   if (session && !isRegistered) {
     return (
       <SmoothScrollLayout>
@@ -123,7 +128,7 @@ function App() {
           <img src={mlhBadge} alt="Major League Hacking 2026 Hackathon Season" className="w-full" />
         </a>
         <ParallaxWrapper>
-          <Hero session={session} isRegistered={isRegistered} />
+          <Hero isRegistered={isRegistered} onViewSagaDetails={() => setView('saga-details')} />
         </ParallaxWrapper>
         <About />
         <Tracks />

@@ -42,7 +42,7 @@ Deno.serve(async (req) => {
             // Ensure this matches your VERIFIED domain in Resend (e.g., send.victorhacks.com)
             // If you verify 'victorhacks.com' directly, you can use 'team@victorhacks.com'
             // If you verify a subdomain 'send.victorhacks.com', use 'team@send.victorhacks.com'
-            from: "Victor Hacks Team <team@team.victorhacks.com>",
+            from: "Victor Hacks Team <team@victorhacks.com>",
             to: [email],
             subject: `Welcome to the War-Band, ${first_name || 'Hacker'}! 🛡️`,
             html: `
