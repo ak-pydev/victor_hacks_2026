@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
 
 export interface BentoCardProps {
@@ -39,7 +39,6 @@ export interface BentoProps {
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '132, 0, 255';
-const MOBILE_BREAKPOINT = 768;
 
 const createParticleElement = (x: number, y: number, color: string = DEFAULT_GLOW_COLOR): HTMLDivElement => {
   const el = document.createElement('div');
@@ -479,21 +478,7 @@ const BentoCardGrid: React.FC<{
   </div>
 );
 
-const useMobileDetection = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  return isMobile;
-};
-
+// custom hook removed
 const MagicBento: React.FC<BentoProps> = ({
   textAutoHide = true,
   enableStars = true,
@@ -509,8 +494,7 @@ const MagicBento: React.FC<BentoProps> = ({
   items = []
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
-  const isMobile = useMobileDetection();
-  const shouldDisableAnimations = disableAnimations || isMobile;
+  const shouldDisableAnimations = disableAnimations; // Relying strictly on CSS/props for disabling
 
   return (
     <>
@@ -530,24 +514,7 @@ const MagicBento: React.FC<BentoProps> = ({
             --purple-border: rgba(132, 0, 255, 0.8);
           }
           
-          .card-responsive {
-            grid-template-columns: 1fr;
-            width: 100%;
-            margin: 0 auto;
-            padding: 0.5rem;
-          }
-          
-          @media (min-width: 600px) {
-            .card-responsive {
-              grid-template-columns: repeat(2, 1fr);
-            }
-          }
-          
-          @media (min-width: 1024px) {
-            .card-responsive {
-              grid-template-columns: repeat(3, 1fr);
-            }
-          }
+          /* Removed custom card-responsive classes in favor of Tailwind */
           
           .card--border-glow::after {
             content: '';
@@ -611,19 +578,7 @@ const MagicBento: React.FC<BentoProps> = ({
             text-overflow: ellipsis;
           }
           
-          @media (max-width: 599px) {
-            .card-responsive {
-              grid-template-columns: 1fr;
-              width: 90%;
-              margin: 0 auto;
-              padding: 0.5rem;
-            }
-            
-            .card-responsive .card {
-              width: 100%;
-              min-height: 180px;
-            }
-          }
+          /* Removed mobile media query for card-responsive */
 
           .logo-fade {
              background-blend-mode: soft-light;
@@ -658,9 +613,11 @@ const MagicBento: React.FC<BentoProps> = ({
       )}
 
       <BentoCardGrid gridRef={gridRef}>
-        <div className="card-responsive grid gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-full">
           {items.map((card, index) => {
-            const baseClassName = `card flex flex-col justify-between relative aspect-[4/3] min-h-[200px] w-full max-w-full p-5 rounded-[20px] border border-solid font-light overflow-hidden transition-colors duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${enableBorderGlow ? 'card--border-glow' : ''
+            // Using aspect-auto for mobile and min-height, switching to lg:aspect-[4/3] carefully if needed, 
+            // but h-full is usually better for grid items to fill row height
+            const baseClassName = `card flex flex-col justify-between relative h-full min-h-[250px] w-full max-w-full p-6 md:p-8 rounded-[20px] border border-solid font-light overflow-hidden transition-colors duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${enableBorderGlow ? 'card--border-glow' : ''
               } ${card.className || ''}`;
 
             const cardStyle = {
@@ -675,8 +632,7 @@ const MagicBento: React.FC<BentoProps> = ({
               backgroundSize: card.backgroundSize || (card.backgroundImage ? 'cover' : undefined),
               backgroundPosition: card.backgroundPosition || (card.backgroundImage ? 'center' : undefined),
               backgroundRepeat: card.backgroundImage ? 'no-repeat' : undefined,
-              gridColumn: !isMobile && card.colSpan ? `span ${card.colSpan}` : undefined,
-              gridRow: !isMobile && card.rowSpan ? `span ${card.rowSpan}` : undefined
+              // Removed inline gridColumn and gridRow calculations, relying entirely on Tailwind classes passed in card.className
             } as React.CSSProperties;
 
             if (enableStars) {
@@ -696,9 +652,9 @@ const MagicBento: React.FC<BentoProps> = ({
                     <span className="card__label text-base">{card.label}</span>
                     {card.icon && <div className="card__icon text-neutral-400">{card.icon}</div>}
                   </div>
-                  <div className="card__content flex flex-col relative text-white flex-grow">
+                  <div className="card__content flex flex-col relative text-white flex-grow mt-4">
                     {card.logo && (
-                      <div className="flex-grow flex items-center justify-center -mt-4 mb-4">
+                      <div className="flex-grow flex items-center justify-center -mt-4 mb-4 min-h-[50px] max-h-[100px] w-full px-4 overflow-hidden">
                         {card.logo}
                       </div>
                     )}
@@ -843,9 +799,9 @@ const MagicBento: React.FC<BentoProps> = ({
                   <span className="card__label text-base">{card.label}</span>
                   {card.icon && <div className="card__icon text-neutral-400">{card.icon}</div>}
                 </div>
-                <div className="card__content flex flex-col relative text-white flex-grow">
+                <div className="card__content flex flex-col relative text-white flex-grow mt-4">
                   {card.logo && (
-                    <div className="flex-grow flex items-center justify-center -mt-4 mb-4">
+                    <div className="flex-grow flex items-center justify-center -mt-4 mb-4 min-h-[50px] max-h-[100px] w-full px-4 overflow-hidden">
                       {card.logo}
                     </div>
                   )}

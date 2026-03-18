@@ -60,7 +60,7 @@ export function Tracks() {
                             description: "Content: Conference access for all participants for one month.\n\nPrize Sponsorship:\n1st Prize: Featherless Scale Plan worth $300\n2nd Prize: Featherless Scale Plan worth $150\n3rd Prize: Featherless Scale Plan worth $75",
                             icon: undefined,
                             logo: (
-                                <img src={FeatherlessLogo} alt="Featherless Logo" className="w-72 mx-auto mb-4 object-contain opacity-90" />
+                                <img src={FeatherlessLogo} alt="Featherless Logo" className="w-48 md:w-72 mx-auto mb-4 object-contain opacity-90" />
                             ),
                             textAutoHide: false,
                             descriptionClassName: "text-base",
@@ -89,7 +89,7 @@ export function Tracks() {
                             description: "For all attendees:\n• 1 month free of our Creator tier (normally $22/month)\n\nFor the overall winning team:\n• Each member receives 3 months of our Pro tier ($99/month)\n\nFor the \"Best Project Built with ElevenLabs\":\n• Each team member receives 6 months of our Scale tier ($330/month)",
                             icon: undefined,
                             logo: (
-                                <img src={ElevenLabsLogo} alt="ElevenLabs Logo" className="w-72 mx-auto mb-4 object-contain opacity-90" />
+                                <img src={ElevenLabsLogo} alt="ElevenLabs Logo" className="w-48 md:w-72 mx-auto mb-4 object-contain opacity-90" />
                             ),
                             textAutoHide: false,
                             descriptionClassName: "text-sm",
