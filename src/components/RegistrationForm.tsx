@@ -47,6 +47,8 @@ const formSchema = z.object({
     gdg_code_of_conduct: z.boolean().refine(val => val === true, { message: "You must agree to the GDG Code of Conduct" }),
     victor_hacks_rules: z.boolean().refine(val => val === true, { message: "You must agree to the Victor Hacks Rules" }),
     mlh_code_of_conduct: z.boolean().refine(val => val === true, { message: "You must agree to the MLH Code of Conduct" }),
+    mlh_data_sharing: z.boolean().refine(val => val === true, { message: "You must authorize MLH to share your registration information" }),
+    mlh_email_consent: z.boolean().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -62,7 +64,7 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
         { id: 'origin', title: 'Origin', fields: ['school', 'level_of_study', 'country_of_residence', 'major', 'linkedin_url', 'resume'] },
         { id: 'demographics', title: 'Demographics', fields: ['gender', 'pronouns', 'race_ethnicity', 'sexual_orientation', 'underrepresented_group'] },
         { id: 'logistics', title: 'Logistics', fields: ['tshirt_size', 'dietary_restrictions', 'shipping_address_line1', 'shipping_address_line2', 'shipping_city', 'shipping_state', 'shipping_country', 'shipping_pincode'] },
-        { id: 'compliance', title: 'Agreements', fields: ['gdg_code_of_conduct', 'victor_hacks_rules', 'mlh_code_of_conduct'] }
+        { id: 'compliance', title: 'Agreements', fields: ['gdg_code_of_conduct', 'victor_hacks_rules', 'mlh_code_of_conduct', 'mlh_data_sharing', 'mlh_email_consent'] }
     ];
 
     const {
@@ -297,6 +299,18 @@ export function RegistrationForm({ session, onComplete }: { session: any, onComp
                                     label={<span>I have read and agree to the <a href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Code of Conduct</a>.</span>}
                                     error={errors.mlh_code_of_conduct}
                                     registration={register("mlh_code_of_conduct")}
+                                />
+
+                                <Checkbox
+                                    label={<span>I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Privacy Policy</a>. I further agree to the terms of both the <a href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Contest Terms and Conditions</a> and the <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md" target="_blank" rel="noreferrer" className="text-viking-gold hover:text-white underline transition-colors">MLH Privacy Policy</a>.</span>}
+                                    error={errors.mlh_data_sharing}
+                                    registration={register("mlh_data_sharing")}
+                                />
+
+                                <Checkbox
+                                    label={<span>I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements. <span className="text-gray-500 text-xs">(Optional)</span></span>}
+                                    error={errors.mlh_email_consent}
+                                    registration={register("mlh_email_consent")}
                                 />
                             </Section>
                         </motion.div>
