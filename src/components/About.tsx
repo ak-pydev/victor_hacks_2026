@@ -6,6 +6,9 @@ import githubLogo from "@/assets/sponsors/github-logo.svg";
 import googleLogo from "@/assets/sponsors/google.svg";
 import mlhLogo from "@/assets/sponsors/mlhlogo.svg";
 import pureButtonsLogo from "@/assets/sponsors/purebuttons.svg";
+import coiLogo from "@/assets/sponsors/COI.jpeg";
+import bluenorthLogo from "@/assets/sponsors/bluenorth.jpeg";
+import nkuCinsamLogo from "@/assets/sponsors/nku_cinsam.jpeg";
 
 export function About() {
     return (
@@ -45,10 +48,15 @@ export function About() {
                         Supported By
                     </h3>
                     <div className="flex flex-col items-center justify-center gap-12 w-full mt-4">
+                        <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20 opacity-70 hover:opacity-100 transition-opacity duration-500">
+                            <img src={coiLogo} alt="College of Informatics" className="h-20 md:h-24 w-auto object-contain rounded-md" />
+                            <img src={bluenorthLogo} alt="Blue North" className="h-20 md:h-24 w-auto object-contain rounded-md" />
+                            <img src={nkuCinsamLogo} alt="NKU CINSAM" className="h-20 md:h-24 w-auto object-contain rounded-md" />
+                        </div>
                         <div className="opacity-70 hover:opacity-100 transition-opacity duration-500">
                             <img src={googleLogo} alt="Google" className="h-24 md:h-32 w-auto object-contain" />
                         </div>
-                        <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20 opacity-70 hover:opacity-100 transition-opacity duration-500 mt-4">
+                        <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20 opacity-70 hover:opacity-100 transition-opacity duration-500">
                             <img src={elevenLabsLogo} alt="ElevenLabs" className="h-16 md:h-24 w-auto object-contain filter brightness-0 invert" />
                             <img src={featherLessLogo} alt="Featherless.ai" className="h-10 md:h-14 w-auto object-contain filter brightness-0 invert" />
                             <img src={dscClubLogo} alt="Developer Student Clubs" className="h-12 md:h-16 w-auto object-contain" />
