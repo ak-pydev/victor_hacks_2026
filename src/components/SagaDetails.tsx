@@ -201,7 +201,7 @@ export const SagaDetails: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                                     WELCOME TITANS
                                 </h1>
                                 <p className="text-xs md:text-xl text-[#00F0FF] tracking-[0.4em] uppercase font-bold text-shadow-md">
-                                    04.11 — 04.12
+                                    04.18 — 04.19
                                 </p>
                                 <div className="h-[1px] w-24 bg-white/30 mx-auto mt-8 mb-10" />
                                 <div className="flex flex-col items-center justify-center space-y-4">
