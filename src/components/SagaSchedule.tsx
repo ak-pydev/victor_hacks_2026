@@ -5,25 +5,25 @@ const scheduleData = [
     {
         day: "Day 1: Saturday, April 18",
         events: [
-            { time: "1:30 PM - 2:30 PM", activity: "Check-in & Registration", location: "Health Innovation Center / Founders Hall", notes: "Attendees pick up badges, swag, and event materials." },
-            { time: "2:30 PM - 3:00 PM", activity: "Opening Ceremony", location: "Main Auditorium", notes: "Welcome remarks by Person and Person." },
-            { time: "3:00 PM - 3:30 PM", activity: "Team Formation & Networking", location: "Common Area", notes: "Facilitated activities to help attendees find team members." },
-            { time: "3:30 PM", activity: "Hacking Begins", location: "Hacking Space", notes: "The official start of the 24-hour hacking period." },
-            { time: "6:00 PM - 7:00 PM", activity: "Dinner Service", location: "Cafeteria", notes: "Provided meal." },
-            { time: "8:00 PM - 9:00 PM", activity: "Workshop: Person", location: "Workshop Room 1", notes: "Topic: File" },
-            { time: "10:00 PM - 10:30 PM", activity: "Late Night Snack Break", location: "Hacking Space", notes: "Light refreshments." },
-            { time: "11:00 PM", activity: "Mentor Check-in", location: "Health Innovation Center / Founders Hall", notes: "Mentors circulate to offer guidance and assistance." },
+            { time: "1:00 PM", activity: "Organizer Check-in", location: "NKU Health Innovation Center", notes: "" },
+            { time: "2:00 PM", activity: "Hacker Check-in", location: "NKU Health Innovation Center", notes: "" },
+            { time: "2:00 PM - 3:00 PM", activity: "Hacker Room Set-up. Coding Begins.", location: "NKU Health Innovation Center", notes: "Doors open for participants" },
+            { time: "3:00 PM - 3:30 PM", activity: "Session 1, Blue North", location: "", notes: "Presenter: Raniya Digankar" },
+            { time: "4:00 PM - 5:00 PM", activity: "Anudeep Bhatina Mentorship Session", location: "", notes: "" },
+            { time: "4:00 PM - 5:30 PM", activity: "Lunch/Dinner Serves", location: "", notes: "" },
+            { time: "5:00 PM - 6:00 PM", activity: "MLH Session", location: "", notes: "Hosted by MLH representative" },
+            { time: "8:00 PM", activity: "Snacks/Energy Drinks", location: "", notes: "" },
         ]
     },
     {
         day: "Day 2: Sunday, April 19",
         events: [
-            { time: "8:00 AM - 9:00 AM", activity: "Breakfast Service", location: "Cafeteria", notes: "Provided meal." },
-            { time: "10:00 AM - 11:00 AM", activity: "Final Person Q&A Session", location: "Workshop Room 2", notes: "Last chance for technical questions." },
-            { time: "11:30 AM", activity: "Hacking Ends/Submission Deadline", location: "Online Platform", notes: "All projects must be submitted to Devpost." },
-            { time: "11:30 AM - 1:00 PM", activity: "Judging Period", location: "Assigned Areas", notes: "Judges review submissions and conduct brief interviews." },
-            { time: "1:00 PM - 2:00 PM", activity: "Lunch Service", location: "Cafeteria", notes: "Provided meal." },
-            { time: "2:00 PM - 3:00 PM", activity: "Closing Ceremony & Awards", location: "Main Auditorium", notes: "Keynote speaker, announcement of winners, and closing remarks. The event ends by 3:00 PM." },
+            { time: "8:00 AM", activity: "Coffee, Granola Bars", location: "", notes: "" },
+            { time: "9:00 AM", activity: "Pizza Serves (Brunch) / MLH Session 2", location: "", notes: "" },
+            { time: "10:00 AM", activity: "Energy Drinks, Snacks", location: "", notes: "" },
+            { time: "1:00 PM", activity: "Coding Ends", location: "Online Platform", notes: "All submissions due by this time." },
+            { time: "2:30 PM", activity: "Judging Ends", location: "", notes: "Judges deliberate and finalize scores." },
+            { time: "3:00 PM", activity: "Results Overview", location: "Main Auditorium", notes: "Awards ceremony and closing remarks." },
         ]
     }
 ];
