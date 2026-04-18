@@ -22,13 +22,14 @@ import { UserProfile } from "@/components/UserProfile";
 
 import { CodeOfConduct } from "@/components/CodeOfConduct";
 import { SagaDetails } from "@/components/SagaDetails";
+import { CheckInForm } from "@/components/CheckInForm";
 
 function App() {
   const [session, setSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [userProfile, setUserProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [view, setView] = useState<'home' | 'code-of-conduct' | 'saga-details'>('home');
+  const [view, setView] = useState<'home' | 'code-of-conduct' | 'saga-details' | 'check-in'>('home');
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -98,6 +99,10 @@ function App() {
     return <SagaDetails onBack={() => setView('home')} />;
   }
 
+  if (view === 'check-in') {
+    return <CheckInForm onBack={() => setView('home')} />;
+  }
+
   if (session && !isRegistered) {
     return (
       <SmoothScrollLayout>
@@ -128,7 +133,7 @@ function App() {
           <img src={mlhBadge} alt="Major League Hacking 2026 Hackathon Season" className="w-full" />
         </a>
         <ParallaxWrapper>
-          <Hero isRegistered={isRegistered} onViewSagaDetails={() => setView('saga-details')} />
+          <Hero isRegistered={isRegistered} onViewSagaDetails={() => setView('saga-details')} onViewCheckIn={() => setView('check-in')} />
         </ParallaxWrapper>
         <About />
         <Tracks />

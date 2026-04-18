@@ -74,20 +74,6 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                                     <IconBrandGithub className="text-black" size={24} />
                                     <span>Sign in with GitHub</span>
                                 </Button>
-
-                                <div className="relative flex py-2 items-center">
-                                    <div className="flex-grow border-t border-gray-600"></div>
-                                    <span className="flex-shrink-0 mx-4 text-gray-500 text-sm">OR</span>
-                                    <div className="flex-grow border-t border-gray-600"></div>
-                                </div>
-
-                                <Button
-                                    onClick={() => window.open("https://forms.gle/Hov5ENWDtUceqJp59", "_blank")}
-                                    variant="outline"
-                                    className="w-full bg-transparent text-gray-300 border border-gray-600 hover:border-viking-gold hover:text-viking-gold font-semibold text-lg py-6 uppercase tracking-wider flex items-center justify-center gap-3 transition-all"
-                                >
-                                    <span>Become a Mentor</span>
-                                </Button>
                             </div>
 
                             <p className="text-xs text-gray-500 italic mt-4">

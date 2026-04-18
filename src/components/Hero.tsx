@@ -31,7 +31,7 @@ const calculateTimeLeft = (): TimeLeft => {
     return timeLeft;
 };
 
-export function Hero({ isRegistered, onViewSagaDetails }: { isRegistered: boolean; onViewSagaDetails?: () => void }) {
+export function Hero({ isRegistered, onViewSagaDetails, onViewCheckIn }: { isRegistered: boolean; onViewSagaDetails?: () => void; onViewCheckIn?: () => void }) {
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -78,6 +78,12 @@ export function Hero({ isRegistered, onViewSagaDetails }: { isRegistered: boolea
                                         REGISTER
                                     </Button>
                                 )}
+                                <Button
+                                    onClick={onViewCheckIn}
+                                    className="bg-viking-charcoal hover:bg-black text-viking-gold font-bold text-sm md:text-base px-6 md:px-8 py-4 md:py-5 rounded-none border-2 border-viking-gold shadow-[3px_3px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full sm:w-auto"
+                                >
+                                    SELF CHECK-IN
+                                </Button>
                                 <Button
                                     onClick={onViewSagaDetails}
                                     className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-sm md:text-base px-6 md:px-8 py-4 md:py-5 rounded-none border-2 border-viking-gold shadow-[3px_3px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full sm:w-auto"
