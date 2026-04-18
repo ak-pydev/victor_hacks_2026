@@ -7,7 +7,7 @@ import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { motion, useScroll, useTransform, useMotionTemplate } from "motion/react";
 import { LoginModal } from "@/components/LoginModal";
 
-const TARGET_DATE = new Date("2026-04-19T00:00:00");
+const TARGET_DATE = new Date("2026-04-18T14:00:00");
 
 interface TimeLeft {
     days: number;
