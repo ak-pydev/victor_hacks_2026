@@ -3,9 +3,6 @@ import { Vortex } from "@/components/ui/vortex";
 import {
     IconBrain,
     IconChartBar,
-    IconCurrencyDollar,
-    IconHeart,
-    IconSoup,
 } from "@tabler/icons-react";
 import ElevenLabsLogo from "@/assets/sponsors/elevenlabs.svg?url";
 import FeatherlessLogo from "@/assets/sponsors/featherless-full-dark.svg?url";
