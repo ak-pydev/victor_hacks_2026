@@ -84,18 +84,6 @@ export function Hero({ isRegistered, onViewSagaDetails }: { isRegistered: boolea
                                 >
                                     EVENT DETAILS
                                 </Button>
-                                <Button
-                                    onClick={() => window.open("https://forms.gle/RCDWXfjBj6CB4WUt6", "_blank")}
-                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-sm md:text-base px-6 md:px-8 py-4 md:py-5 rounded-none border-2 border-viking-gold shadow-[3px_3px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full sm:w-auto"
-                                >
-                                    BECOME A SPONSOR
-                                </Button>
-                                <Button
-                                    onClick={() => window.open("https://forms.gle/Hov5ENWDtUceqJp59", "_blank")}
-                                    className="bg-viking-leather hover:bg-viking-charcoal text-white font-bold text-sm md:text-base px-6 md:px-8 py-4 md:py-5 rounded-none border-2 border-viking-gold shadow-[3px_3px_0px_0px_rgba(251,191,36,1)] transition-transform active:translate-y-1 active:shadow-none uppercase tracking-widest w-full sm:w-auto"
-                                >
-                                    Become a Mentor
-                                </Button>
                             </div>
                         </div>
                     }
